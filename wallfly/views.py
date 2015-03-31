@@ -21,3 +21,10 @@ def home(request):
     return render(request, 'base.djhtml')
 
 
+class PropertyView(APIView):
+
+    def get(self, request, format=None):
+        properties = Property.objects.all()
+        serializer = PropertySerializer(properties, many=True)
+
+        return Response(serializer.data)

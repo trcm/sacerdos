@@ -33,10 +33,14 @@ class Owner(models.Model):
     """
 
     owner_id = UUIDField(auto=True)
+    owner_name = models.CharField(max_length=100, null=False)
     contact_number = models.CharField(max_length=20, null=False)
     address = models.CharField(max_length=200, null=False)
     email = models.EmailField(null=False)
     num_properties = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return "%s" % self.owner_name
 
 class Property(models.Model):
 
@@ -62,8 +66,10 @@ class Property(models.Model):
     agent_id = models.ForeignKey(Agent, null=True)
     num_tenants = models.IntegerField(null=True)
     name = models.CharField(max_length=200)
-    property_image = models.ImageField()
+    property_image = models.ImageField(null=True)
 
+    def __unicode__(self):
+        return "%s" % (self.name)
 
 class Tenant(models.Model):
 
