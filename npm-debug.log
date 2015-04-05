@@ -1,12 +1,29 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'uglify-js', '--save' ]
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   '--save',
+1 verbose cli   'cordova',
+1 verbose cli   'ionic' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.33
-4 warn package.json wallfly@0.0.0 No repository field.
-5 warn package.json wallfly@0.0.0 No README data
-6 verbose readDependencies using package.json deps
-7 verbose cache add [ 'uglify-js', null ]
-8 verbose cache add name=undefined spec="uglify-js" args=["uglify-js",null]
+4 verbose cache add [ 'cordova', null ]
+5 verbose cache add name=undefined spec="cordova" args=["cordova",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'cordova',
+6 verbose parsed url   path: 'cordova',
+6 verbose parsed url   href: 'cordova' }
+7 verbose cache add [ 'ionic', null ]
+8 verbose cache add name=undefined spec="ionic" args=["ionic",null]
 9 verbose parsed url { protocol: null,
 9 verbose parsed url   slashes: null,
 9 verbose parsed url   auth: null,
@@ -16,140 +33,624 @@
 9 verbose parsed url   hash: null,
 9 verbose parsed url   search: null,
 9 verbose parsed url   query: null,
-9 verbose parsed url   pathname: 'uglify-js',
-9 verbose parsed url   path: 'uglify-js',
-9 verbose parsed url   href: 'uglify-js' }
-10 silly lockFile d31cae06-uglify-js uglify-js
-11 verbose lock uglify-js /Users/tom/.npm/d31cae06-uglify-js.lock
-12 silly lockFile d31cae06-uglify-js uglify-js
-13 silly lockFile d31cae06-uglify-js uglify-js
-14 verbose addNamed [ 'uglify-js', '' ]
-15 verbose addNamed [ null, '*' ]
-16 silly lockFile 679a1028-uglify-js uglify-js@
-17 verbose lock uglify-js@ /Users/tom/.npm/679a1028-uglify-js.lock
-18 silly addNameRange { name: 'uglify-js', range: '*', hasData: false }
-19 verbose request where is /uglify-js
-20 verbose request registry https://registry.npmjs.org/
-21 verbose request id e0d899c332dbeeac
-22 verbose url raw /uglify-js
-23 verbose url resolving [ 'https://registry.npmjs.org/', './uglify-js' ]
-24 verbose url resolved https://registry.npmjs.org/uglify-js
-25 verbose request where is https://registry.npmjs.org/uglify-js
-26 info trying registry request attempt 1 at 14:34:08
-27 verbose etag "C8FGFA1DV9ED7FAJD2TALPVXD"
-28 http GET https://registry.npmjs.org/uglify-js
-29 http 304 https://registry.npmjs.org/uglify-js
-30 silly registry.get cb [ 304,
-30 silly registry.get   { date: 'Tue, 31 Mar 2015 04:34:08 GMT',
-30 silly registry.get     server: 'Apache',
-30 silly registry.get     via: '1.1 varnish',
-30 silly registry.get     'last-modified': 'Tue, 31 Mar 2015 04:34:07 GMT',
-30 silly registry.get     'cache-control': 'max-age=60',
-30 silly registry.get     etag: '"C8FGFA1DV9ED7FAJD2TALPVXD"',
-30 silly registry.get     age: '13',
-30 silly registry.get     'x-served-by': 'cache-syd1623-SYD',
-30 silly registry.get     'x-cache': 'HIT',
-30 silly registry.get     'x-cache-hits': '2',
-30 silly registry.get     'x-timer': 'S1427776448.429242,VS0,VE0',
-30 silly registry.get     vary: 'Accept',
-30 silly registry.get     'content-length': '0',
-30 silly registry.get     'keep-alive': 'timeout=10, max=50',
-30 silly registry.get     connection: 'Keep-Alive' } ]
-31 verbose etag https://registry.npmjs.org/uglify-js from cache
-32 silly addNameRange number 2 { name: 'uglify-js', range: '*', hasData: true }
-33 silly addNameRange versions [ 'uglify-js',
-33 silly addNameRange   [ '0.0.1',
-33 silly addNameRange     '0.0.2',
-33 silly addNameRange     '0.0.3',
-33 silly addNameRange     '0.0.4',
-33 silly addNameRange     '0.0.5',
-33 silly addNameRange     '1.0.1',
-33 silly addNameRange     '1.0.2',
-33 silly addNameRange     '1.0.3',
-33 silly addNameRange     '1.0.4',
-33 silly addNameRange     '1.0.5',
-33 silly addNameRange     '1.0.6',
-33 silly addNameRange     '1.0.7',
-33 silly addNameRange     '1.1.0',
-33 silly addNameRange     '1.1.1',
-33 silly addNameRange     '1.2.0',
-33 silly addNameRange     '1.2.1',
-33 silly addNameRange     '1.2.2',
-33 silly addNameRange     '1.2.3',
-33 silly addNameRange     '1.2.4',
-33 silly addNameRange     '1.2.5',
-33 silly addNameRange     '1.2.6',
-33 silly addNameRange     '1.3.0',
-33 silly addNameRange     '1.3.1',
-33 silly addNameRange     '1.3.2',
-33 silly addNameRange     '1.3.3',
-33 silly addNameRange     '1.3.4',
-33 silly addNameRange     '2.2.0',
-33 silly addNameRange     '2.2.1',
-33 silly addNameRange     '2.2.2',
-33 silly addNameRange     '2.2.3',
-33 silly addNameRange     '2.2.4',
-33 silly addNameRange     '2.2.5',
-33 silly addNameRange     '2.3.0',
-33 silly addNameRange     '2.3.1',
-33 silly addNameRange     '2.3.2',
-33 silly addNameRange     '2.3.3',
-33 silly addNameRange     '2.3.4',
-33 silly addNameRange     '2.3.5',
-33 silly addNameRange     '2.3.6',
-33 silly addNameRange     '1.3.5',
-33 silly addNameRange     '2.4.0',
-33 silly addNameRange     '2.4.1',
-33 silly addNameRange     '2.4.2',
-33 silly addNameRange     '2.4.3',
-33 silly addNameRange     '2.4.4',
-33 silly addNameRange     '2.4.5',
-33 silly addNameRange     '2.4.6',
-33 silly addNameRange     '2.4.7',
-33 silly addNameRange     '2.4.8',
-33 silly addNameRange     '2.4.9',
-33 silly addNameRange     '2.4.10',
-33 silly addNameRange     '2.4.11',
-33 silly addNameRange     '2.4.12',
-33 silly addNameRange     '2.4.13',
-33 silly addNameRange     '2.4.14',
-33 silly addNameRange     '2.4.15',
-33 silly addNameRange     '2.4.16',
-33 silly addNameRange     '2.4.17',
-33 silly addNameRange     '2.4.18',
-33 silly addNameRange     '2.4.19' ] ]
-34 verbose addNamed [ 'uglify-js', '2.4.19' ]
-35 verbose addNamed [ '2.4.19', '2.4.19' ]
-36 silly lockFile 8f2fc6b1-uglify-js-2-4-19 uglify-js@2.4.19
-37 verbose lock uglify-js@2.4.19 /Users/tom/.npm/8f2fc6b1-uglify-js-2-4-19.lock
-38 silly lockFile 20a2f076-g-uglify-js-uglify-js-2-4-19-tgz https://registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz
-39 verbose lock https://registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz /Users/tom/.npm/20a2f076-g-uglify-js-uglify-js-2-4-19-tgz.lock
-40 verbose addRemoteTarball [ 'https://registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz',
-40 verbose addRemoteTarball   'a43d7828f32ecec7fc3a14dfc0f9466feda4dfce' ]
-41 info retry fetch attempt 1 at 14:34:08
-42 verbose fetch to= /var/folders/nm/_t85whxd7m9b2x6f6w5pk25c0000gn/T/npm-13595-MuskX8d2/registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz
-43 http GET https://registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz
-44 http 200 https://registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz
-45 silly lockFile 20a2f076-g-uglify-js-uglify-js-2-4-19-tgz https://registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz
-46 silly lockFile 20a2f076-g-uglify-js-uglify-js-2-4-19-tgz https://registry.npmjs.org/uglify-js/-/uglify-js-2.4.19.tgz
-47 silly lockFile 8f2fc6b1-uglify-js-2-4-19 uglify-js@2.4.19
-48 silly lockFile 8f2fc6b1-uglify-js-2-4-19 uglify-js@2.4.19
-49 silly lockFile 679a1028-uglify-js uglify-js@
-50 silly lockFile 679a1028-uglify-js uglify-js@
-51 error Error: EACCES, mkdir '/Users/tom/.npm/uglify-js/2.4.19'
-51 error  { [Error: EACCES, mkdir '/Users/tom/.npm/uglify-js/2.4.19']
-51 error   errno: 3,
-51 error   code: 'EACCES',
-51 error   path: '/Users/tom/.npm/uglify-js/2.4.19',
-51 error   parent: 'wallfly' }
-52 error Please try running this command again as root/Administrator.
-53 error System Darwin 14.1.0
-54 error command "node" "/usr/local/bin/npm" "install" "uglify-js" "--save"
-55 error cwd /Users/tom/Uni/DECO3800/sacerdos
-56 error node -v v0.10.33
-57 error npm -v 1.4.28
-58 error path /Users/tom/.npm/uglify-js/2.4.19
-59 error code EACCES
-60 error errno 3
-61 error stack Error: EACCES, mkdir '/Users/tom/.npm/uglify-js/2.4.19'
-62 verbose exit [ 3, true ]
+9 verbose parsed url   pathname: 'ionic',
+9 verbose parsed url   path: 'ionic',
+9 verbose parsed url   href: 'ionic' }
+10 silly lockFile a98f2055-cordova cordova
+11 verbose lock cordova /Users/tom/.npm/a98f2055-cordova.lock
+12 silly lockFile 00d10074-ionic ionic
+13 verbose lock ionic /Users/tom/.npm/00d10074-ionic.lock
+14 silly lockFile a98f2055-cordova cordova
+15 silly lockFile a98f2055-cordova cordova
+16 silly lockFile 00d10074-ionic ionic
+17 silly lockFile 00d10074-ionic ionic
+18 verbose addNamed [ 'cordova', '' ]
+19 verbose addNamed [ null, '*' ]
+20 silly lockFile de8d9fad-cordova cordova@
+21 verbose lock cordova@ /Users/tom/.npm/de8d9fad-cordova.lock
+22 verbose addNamed [ 'ionic', '' ]
+23 verbose addNamed [ null, '*' ]
+24 silly lockFile 966fc04a-ionic ionic@
+25 verbose lock ionic@ /Users/tom/.npm/966fc04a-ionic.lock
+26 silly addNameRange { name: 'cordova', range: '*', hasData: false }
+27 silly addNameRange { name: 'ionic', range: '*', hasData: false }
+28 verbose request where is /cordova
+29 verbose request registry https://registry.npmjs.org/
+30 verbose request id c8a4c5b2311ed640
+31 verbose url raw /cordova
+32 verbose url resolving [ 'https://registry.npmjs.org/', './cordova' ]
+33 verbose url resolved https://registry.npmjs.org/cordova
+34 verbose request where is https://registry.npmjs.org/cordova
+35 info trying registry request attempt 1 at 15:16:32
+36 http GET https://registry.npmjs.org/cordova
+37 verbose request where is /ionic
+38 verbose request registry https://registry.npmjs.org/
+39 verbose url raw /ionic
+40 verbose url resolving [ 'https://registry.npmjs.org/', './ionic' ]
+41 verbose url resolved https://registry.npmjs.org/ionic
+42 verbose request where is https://registry.npmjs.org/ionic
+43 info trying registry request attempt 1 at 15:16:32
+44 http GET https://registry.npmjs.org/ionic
+45 http 200 https://registry.npmjs.org/cordova
+46 silly registry.get cb [ 200,
+46 silly registry.get   { date: 'Tue, 31 Mar 2015 05:16:32 GMT',
+46 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+46 silly registry.get     etag: '"3UVZR202KYXYJF62ELH8JYIUQ"',
+46 silly registry.get     'content-type': 'application/json',
+46 silly registry.get     'cache-control': 'max-age=60',
+46 silly registry.get     'content-length': '340525',
+46 silly registry.get     'accept-ranges': 'bytes',
+46 silly registry.get     via: '1.1 varnish',
+46 silly registry.get     age: '0',
+46 silly registry.get     'x-served-by': 'cache-syd1620-SYD',
+46 silly registry.get     'x-cache': 'MISS',
+46 silly registry.get     'x-cache-hits': '0',
+46 silly registry.get     'x-timer': 'S1427778992.670817,VS0,VE192',
+46 silly registry.get     vary: 'Accept',
+46 silly registry.get     'keep-alive': 'timeout=10, max=50',
+46 silly registry.get     connection: 'Keep-Alive' } ]
+47 http 200 https://registry.npmjs.org/ionic
+48 silly registry.get cb [ 200,
+48 silly registry.get   { date: 'Tue, 31 Mar 2015 05:16:32 GMT',
+48 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+48 silly registry.get     etag: '"DVNTHMNVWN260T3AOYEIM9A01"',
+48 silly registry.get     'content-type': 'application/json',
+48 silly registry.get     'cache-control': 'max-age=60',
+48 silly registry.get     'content-length': '290214',
+48 silly registry.get     'accept-ranges': 'bytes',
+48 silly registry.get     via: '1.1 varnish',
+48 silly registry.get     age: '0',
+48 silly registry.get     'x-served-by': 'cache-syd1620-SYD',
+48 silly registry.get     'x-cache': 'MISS',
+48 silly registry.get     'x-cache-hits': '0',
+48 silly registry.get     'x-timer': 'S1427778992.672314,VS0,VE191',
+48 silly registry.get     vary: 'Accept',
+48 silly registry.get     'keep-alive': 'timeout=10, max=50',
+48 silly registry.get     connection: 'Keep-Alive' } ]
+49 silly addNameRange number 2 { name: 'ionic', range: '*', hasData: true }
+50 silly addNameRange versions [ 'ionic',
+50 silly addNameRange   [ '0.9.6',
+50 silly addNameRange     '0.9.8',
+50 silly addNameRange     '0.9.9',
+50 silly addNameRange     '0.9.10',
+50 silly addNameRange     '0.9.11',
+50 silly addNameRange     '0.9.12',
+50 silly addNameRange     '0.9.13',
+50 silly addNameRange     '0.9.14',
+50 silly addNameRange     '0.9.15',
+50 silly addNameRange     '0.9.16',
+50 silly addNameRange     '1.0.0-beta.1',
+50 silly addNameRange     '1.0.0-beta',
+50 silly addNameRange     '1.0.1-beta',
+50 silly addNameRange     '1.0.3-beta',
+50 silly addNameRange     '1.0.4',
+50 silly addNameRange     '1.0.5',
+50 silly addNameRange     '1.0.6',
+50 silly addNameRange     '1.0.7',
+50 silly addNameRange     '1.0.8',
+50 silly addNameRange     '1.0.9',
+50 silly addNameRange     '1.0.10',
+50 silly addNameRange     '1.0.11',
+50 silly addNameRange     '1.0.12',
+50 silly addNameRange     '1.0.13',
+50 silly addNameRange     '1.0.14',
+50 silly addNameRange     '1.0.15',
+50 silly addNameRange     '1.0.16',
+50 silly addNameRange     '1.0.17',
+50 silly addNameRange     '1.1.0-beta1',
+50 silly addNameRange     '1.1.0-beta2',
+50 silly addNameRange     '1.1.0-beta3',
+50 silly addNameRange     '1.1.0-beta4',
+50 silly addNameRange     '1.1.0-beta5',
+50 silly addNameRange     '1.1.0-beta6',
+50 silly addNameRange     '1.1.0',
+50 silly addNameRange     '1.1.1-beta1',
+50 silly addNameRange     '1.1.1-beta2',
+50 silly addNameRange     '1.1.1-beta3',
+50 silly addNameRange     '1.1.1',
+50 silly addNameRange     '1.1.3',
+50 silly addNameRange     '1.1.4',
+50 silly addNameRange     '1.1.5-beta1',
+50 silly addNameRange     '1.1.5-beta2',
+50 silly addNameRange     '1.1.5-beta3',
+50 silly addNameRange     '1.1.5-beta4',
+50 silly addNameRange     '1.1.5-beta5',
+50 silly addNameRange     '1.1.5',
+50 silly addNameRange     '1.1.6',
+50 silly addNameRange     '1.1.7-beta1',
+50 silly addNameRange     '1.1.7',
+50 silly addNameRange     '1.1.8-beta1',
+50 silly addNameRange     '1.1.8-beta2',
+50 silly addNameRange     '1.1.8-beta3',
+50 silly addNameRange     '1.1.8-beta4',
+50 silly addNameRange     '1.1.8-beta5',
+50 silly addNameRange     '1.1.8',
+50 silly addNameRange     '1.1.9-beta1',
+50 silly addNameRange     '1.1.9',
+50 silly addNameRange     '1.1.10',
+50 silly addNameRange     '1.1.11-beta1',
+50 silly addNameRange     '1.1.11-beta2',
+50 silly addNameRange     '1.1.11',
+50 silly addNameRange     '1.1.12-beta1',
+50 silly addNameRange     '1.1.12-beta2',
+50 silly addNameRange     '1.1.12-beta3',
+50 silly addNameRange     '1.1.12',
+50 silly addNameRange     '1.1.13',
+50 silly addNameRange     '1.1.14-beta1',
+50 silly addNameRange     '1.1.14-beta2',
+50 silly addNameRange     '1.1.14-beta3',
+50 silly addNameRange     '1.2.0-beta1',
+50 silly addNameRange     '1.2.0',
+50 silly addNameRange     '1.2.1-beta1',
+50 silly addNameRange     '1.2.1-beta2',
+50 silly addNameRange     '1.2.1-beta3',
+50 silly addNameRange     '1.2.1-beta4',
+50 silly addNameRange     '1.2.1',
+50 silly addNameRange     '1.2.2',
+50 silly addNameRange     '1.2.3-beta1',
+50 silly addNameRange     '1.2.3-beta2',
+50 silly addNameRange     '1.2.3-beta3',
+50 silly addNameRange     '1.2.3',
+50 silly addNameRange     '1.2.4-beta1',
+50 silly addNameRange     '1.2.4-beta2',
+50 silly addNameRange     '1.2.4-beta3',
+50 silly addNameRange     '1.2.4',
+50 silly addNameRange     '1.2.5-beta1',
+50 silly addNameRange     '1.2.5-beta2',
+50 silly addNameRange     '1.2.5-beta3',
+50 silly addNameRange     '1.2.5',
+50 silly addNameRange     '1.2.6-beta1',
+50 silly addNameRange     '1.2.6-beta2',
+50 silly addNameRange     '1.2.6-beta3',
+50 silly addNameRange     '1.2.6',
+50 silly addNameRange     '1.2.7',
+50 silly addNameRange     '1.2.8-beta1',
+50 silly addNameRange     '1.2.8-beta2',
+50 silly addNameRange     '1.2.8',
+50 silly addNameRange     '1.2.9',
+50 silly addNameRange     '1.2.10',
+50 silly addNameRange     '1.2.11',
+50 silly addNameRange     '1.2.12',
+50 silly addNameRange     '1.2.13',
+50 silly addNameRange     '1.2.14-beta1',
+50 silly addNameRange     '1.2.14-beta2',
+50 silly addNameRange     '1.2.14-beta3',
+50 silly addNameRange     '1.2.14-beta4',
+50 silly addNameRange     '1.2.14-beta5',
+50 silly addNameRange     '1.2.14-beta6',
+50 silly addNameRange     '1.2.14',
+50 silly addNameRange     '1.3.0-beta1',
+50 silly addNameRange     '1.3.0',
+50 silly addNameRange     '1.3.1',
+50 silly addNameRange     '1.3.2',
+50 silly addNameRange     '1.3.3',
+50 silly addNameRange     '1.3.4',
+50 silly addNameRange     '1.3.5',
+50 silly addNameRange     '1.3.6',
+50 silly addNameRange     '1.3.7',
+50 silly addNameRange     '1.3.8',
+50 silly addNameRange     '1.3.9',
+50 silly addNameRange     '1.3.10',
+50 silly addNameRange     '1.4.0-alpha.1',
+50 silly addNameRange     '1.3.11',
+50 silly addNameRange     '1.3.1-1.alpha.0',
+50 silly addNameRange     '1.4.0-alpha.2',
+50 silly addNameRange     '1.3.12',
+50 silly addNameRange     '1.3.12-beta.1',
+50 silly addNameRange     '1.3.12-beta.2',
+50 silly addNameRange     '1.3.13-beta.0',
+50 silly addNameRange     '1.3.1-3.beta.1',
+50 silly addNameRange     '1.3.1-3.beta.2',
+50 silly addNameRange     '1.3.13',
+50 silly addNameRange     '1.3.1-3.beta.4',
+50 silly addNameRange     '1.3.14-beta',
+50 silly addNameRange     '1.3.14-beta.1',
+50 silly addNameRange     '1.4.0-alpha.3',
+50 silly addNameRange     '1.3.14',
+50 silly addNameRange     '1.4.0-alpha.4',
+50 silly addNameRange     '1.4.0-alpha.5',
+50 silly addNameRange     '1.3.15-beta.0',
+50 silly addNameRange     '1.3.15-beta.1',
+50 silly addNameRange     '1.3.15-beta.2',
+50 silly addNameRange     '1.3.15-beta.3',
+50 silly addNameRange     '1.3.15-beta.4',
+50 silly addNameRange     '1.3.15',
+50 silly addNameRange     '1.3.16',
+50 silly addNameRange     '1.4.0-alpha.6',
+50 silly addNameRange     '1.3.17-beta.0',
+50 silly addNameRange     '1.3.17-beta.1',
+50 silly addNameRange     '1.3.17-beta.2',
+50 silly addNameRange     '1.3.17-beta.3',
+50 silly addNameRange     '1.3.1-7.beta.4',
+50 silly addNameRange     '1.3.17',
+50 silly addNameRange     '1.3.18-beta.0',
+50 silly addNameRange     '1.3.18-beta.1',
+50 silly addNameRange     '1.3.18-beta.2',
+50 silly addNameRange     '1.3.18-beta.3',
+50 silly addNameRange     '1.3.18',
+50 silly addNameRange     '1.3.19-beta.0',
+50 silly addNameRange     '1.3.19-beta.1',
+50 silly addNameRange     '1.3.19-beta.2' ] ]
+51 verbose addNamed [ 'ionic', '1.3.18' ]
+52 verbose addNamed [ '1.3.18', '1.3.18' ]
+53 silly lockFile 6d1b45ea-ionic-1-3-18 ionic@1.3.18
+54 verbose lock ionic@1.3.18 /Users/tom/.npm/6d1b45ea-ionic-1-3-18.lock
+55 silly lockFile d9c3b9e2-npmjs-org-ionic-ionic-1-3-18-tgz https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz
+56 verbose lock https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz /Users/tom/.npm/d9c3b9e2-npmjs-org-ionic-ionic-1-3-18-tgz.lock
+57 verbose addRemoteTarball [ 'https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz',
+57 verbose addRemoteTarball   'd7775e2020bcf42153ee4ba6e201cba3f7f7df29' ]
+58 info retry fetch attempt 1 at 15:16:32
+59 verbose fetch to= /var/folders/nm/_t85whxd7m9b2x6f6w5pk25c0000gn/T/npm-17894-S2d6vtCF/registry.npmjs.org/ionic/-/ionic-1.3.18.tgz
+60 http GET https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz
+61 silly addNameRange number 2 { name: 'cordova', range: '*', hasData: true }
+62 silly addNameRange versions [ 'cordova',
+62 silly addNameRange   [ '0.0.1',
+62 silly addNameRange     '0.0.2',
+62 silly addNameRange     '0.0.3',
+62 silly addNameRange     '0.0.4',
+62 silly addNameRange     '0.0.5',
+62 silly addNameRange     '0.0.6',
+62 silly addNameRange     '0.0.7',
+62 silly addNameRange     '0.0.8',
+62 silly addNameRange     '0.0.9',
+62 silly addNameRange     '0.1.0',
+62 silly addNameRange     '0.1.1',
+62 silly addNameRange     '0.1.2',
+62 silly addNameRange     '0.1.3',
+62 silly addNameRange     '0.1.4',
+62 silly addNameRange     '0.1.5',
+62 silly addNameRange     '0.1.6',
+62 silly addNameRange     '0.1.7',
+62 silly addNameRange     '0.1.8',
+62 silly addNameRange     '0.1.9',
+62 silly addNameRange     '0.1.10',
+62 silly addNameRange     '0.1.11',
+62 silly addNameRange     '0.1.12',
+62 silly addNameRange     '0.1.13',
+62 silly addNameRange     '0.1.14',
+62 silly addNameRange     '2.2.0',
+62 silly addNameRange     '2.3.0',
+62 silly addNameRange     '2.3.1',
+62 silly addNameRange     '2.3.2',
+62 silly addNameRange     '2.3.3',
+62 silly addNameRange     '2.3.5',
+62 silly addNameRange     '2.3.6',
+62 silly addNameRange     '2.4.0',
+62 silly addNameRange     '2.4.1',
+62 silly addNameRange     '2.4.2',
+62 silly addNameRange     '2.4.3',
+62 silly addNameRange     '2.4.4',
+62 silly addNameRange     '2.4.5',
+62 silly addNameRange     '2.4.6',
+62 silly addNameRange     '2.4.7',
+62 silly addNameRange     '2.4.8',
+62 silly addNameRange     '2.4.9',
+62 silly addNameRange     '2.4.10',
+62 silly addNameRange     '2.5.0',
+62 silly addNameRange     '2.5.2',
+62 silly addNameRange     '2.5.3',
+62 silly addNameRange     '2.5.4',
+62 silly addNameRange     '2.5.5',
+62 silly addNameRange     '2.6.0',
+62 silly addNameRange     '2.6.1',
+62 silly addNameRange     '2.6.2',
+62 silly addNameRange     '2.7.0-rc.1',
+62 silly addNameRange     '2.7.1-rc.1',
+62 silly addNameRange     '2.7.2',
+62 silly addNameRange     '2.7.3',
+62 silly addNameRange     '2.7.4',
+62 silly addNameRange     '2.8.0',
+62 silly addNameRange     '2.8.1',
+62 silly addNameRange     '2.8.2',
+62 silly addNameRange     '2.8.3',
+62 silly addNameRange     '2.8.4',
+62 silly addNameRange     '2.8.5',
+62 silly addNameRange     '2.8.6',
+62 silly addNameRange     '2.8.7',
+62 silly addNameRange     '2.8.8',
+62 silly addNameRange     '2.8.9',
+62 silly addNameRange     '2.8.10',
+62 silly addNameRange     '2.8.11',
+62 silly addNameRange     '2.8.12',
+62 silly addNameRange     '2.8.13',
+62 silly addNameRange     '2.8.14',
+62 silly addNameRange     '2.8.15',
+62 silly addNameRange     '2.8.16',
+62 silly addNameRange     '2.8.17',
+62 silly addNameRange     '2.8.18',
+62 silly addNameRange     '2.8.19',
+62 silly addNameRange     '2.8.20',
+62 silly addNameRange     '2.8.21',
+62 silly addNameRange     '2.8.22',
+62 silly addNameRange     '2.8.23',
+62 silly addNameRange     '2.8.24',
+62 silly addNameRange     '2.8.25',
+62 silly addNameRange     '2.9.0',
+62 silly addNameRange     '2.9.1',
+62 silly addNameRange     '2.9.2',
+62 silly addNameRange     '2.9.3',
+62 silly addNameRange     '2.9.4',
+62 silly addNameRange     '2.9.5',
+62 silly addNameRange     '2.9.6',
+62 silly addNameRange     '2.9.7',
+62 silly addNameRange     '3.0.0-rc1',
+62 silly addNameRange     '3.0.0-rc1-1',
+62 silly addNameRange     '3.0.0-rc1-3',
+62 silly addNameRange     '3.0.0',
+62 silly addNameRange     '3.0.1',
+62 silly addNameRange     '3.0.2',
+62 silly addNameRange     '3.0.3',
+62 silly addNameRange     '3.0.4',
+62 silly addNameRange     '3.0.5',
+62 silly addNameRange     '3.0.6',
+62 silly addNameRange     '3.0.7',
+62 silly addNameRange     '3.0.8',
+62 silly addNameRange     '3.0.9',
+62 silly addNameRange     '3.0.10',
+62 silly addNameRange     '3.1.0-0.1.0',
+62 silly addNameRange     '3.1.0-0.2.0',
+62 silly addNameRange     '3.2.0-rc.1',
+62 silly addNameRange     '3.2.0-0.1.0',
+62 silly addNameRange     '3.2.0-0.2.0',
+62 silly addNameRange     '3.2.0-0.3.0',
+62 silly addNameRange     '3.2.0-0.4.0',
+62 silly addNameRange     '3.3.0-rc.1',
+62 silly addNameRange     '3.3.0-0.1.1',
+62 silly addNameRange     '3.3.1-0.1.2',
+62 silly addNameRange     '2.9.0-rc1',
+62 silly addNameRange     '3.3.1-0.3.0',
+62 silly addNameRange     '3.3.1-0.3.1',
+62 silly addNameRange     '3.3.1-0.4.1',
+62 silly addNameRange     '3.3.1-0.4.2',
+62 silly addNameRange     '3.4.0-0.1.0',
+62 silly addNameRange     '3.4.0-0.1.1',
+62 silly addNameRange     '3.4.0-0.1.2',
+62 silly addNameRange     '3.4.0-0.1.3',
+62 silly addNameRange     '0.0.0-fake',
+62 silly addNameRange     '3.4.1-0.1.0',
+62 silly addNameRange     '3.5.0-0.2.0',
+62 silly addNameRange     '3.5.0-0.2.1',
+62 silly addNameRange     '3.5.0-0.2.2',
+62 silly addNameRange     '3.5.0-0.2.3',
+62 silly addNameRange     '3.5.0-0.2.4',
+62 silly addNameRange     '3.5.0-0.2.6',
+62 silly addNameRange     '3.5.0-0.2.7',
+62 silly addNameRange     '3.6.0-0.2.8',
+62 silly addNameRange     '3.6.0-0.2.9',
+62 silly addNameRange     '3.6.1-0.2.10',
+62 silly addNameRange     '3.6.3-0.2.11',
+62 silly addNameRange     '3.6.3-0.2.12',
+62 silly addNameRange     '3.6.3-0.2.13',
+62 silly addNameRange     '4.0.0',
+62 silly addNameRange     '4.0.1',
+62 silly addNameRange     '4.1.0',
+62 silly addNameRange     '4.1.1',
+62 silly addNameRange     '4.1.2',
+62 silly addNameRange     '4.1.3-nightly.2014.10.21',
+62 silly addNameRange     '4.2.0',
+62 silly addNameRange     '4.3.0' ] ]
+63 verbose addNamed [ 'cordova', '4.3.0' ]
+64 verbose addNamed [ '4.3.0', '4.3.0' ]
+65 silly lockFile 9ec5c886-cordova-4-3-0 cordova@4.3.0
+66 verbose lock cordova@4.3.0 /Users/tom/.npm/9ec5c886-cordova-4-3-0.lock
+67 silly lockFile c4c2f9fa-js-org-cordova-cordova-4-3-0-tgz https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz
+68 verbose lock https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz /Users/tom/.npm/c4c2f9fa-js-org-cordova-cordova-4-3-0-tgz.lock
+69 verbose addRemoteTarball [ 'https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz',
+69 verbose addRemoteTarball   '3386c35f454591eee58458584a6006f7bfcb3f0c' ]
+70 info retry fetch attempt 1 at 15:16:32
+71 verbose fetch to= /var/folders/nm/_t85whxd7m9b2x6f6w5pk25c0000gn/T/npm-17894-S2d6vtCF/registry.npmjs.org/cordova/-/cordova-4.3.0.tgz
+72 http GET https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz
+73 http 200 https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz
+74 http 200 https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz
+75 silly lockFile c4c2f9fa-js-org-cordova-cordova-4-3-0-tgz https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz
+76 silly lockFile c4c2f9fa-js-org-cordova-cordova-4-3-0-tgz https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz
+77 silly lockFile 9ec5c886-cordova-4-3-0 cordova@4.3.0
+78 silly lockFile 9ec5c886-cordova-4-3-0 cordova@4.3.0
+79 silly lockFile de8d9fad-cordova cordova@
+80 silly lockFile de8d9fad-cordova cordova@
+81 silly lockFile d9c3b9e2-npmjs-org-ionic-ionic-1-3-18-tgz https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz
+82 silly lockFile d9c3b9e2-npmjs-org-ionic-ionic-1-3-18-tgz https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz
+83 silly lockFile 6d1b45ea-ionic-1-3-18 ionic@1.3.18
+84 silly lockFile 6d1b45ea-ionic-1-3-18 ionic@1.3.18
+85 silly lockFile 966fc04a-ionic ionic@
+86 silly lockFile 966fc04a-ionic ionic@
+87 silly resolved [ { name: 'cordova',
+87 silly resolved     version: '4.3.0',
+87 silly resolved     preferGlobal: 'true',
+87 silly resolved     description: 'Cordova command line interface tool',
+87 silly resolved     main: 'cordova',
+87 silly resolved     engines: { node: '>=0.9.9' },
+87 silly resolved     engineStrict: true,
+87 silly resolved     bin: { cordova: './bin/cordova' },
+87 silly resolved     scripts:
+87 silly resolved      { test: 'node node_modules/jasmine-node/bin/jasmine-node --captureExceptions --color spec',
+87 silly resolved        cover: 'node node_modules/istanbul/lib/cli.js cover --root src --print detail node_modules/jasmine-node/bin/jasmine-node -- spec' },
+87 silly resolved     repository:
+87 silly resolved      { type: 'git',
+87 silly resolved        url: 'https://git-wip-us.apache.org/repos/asf/cordova-cli.git' },
+87 silly resolved     bugs:
+87 silly resolved      { url: 'https://issues.apache.org/jira/browse/CB',
+87 silly resolved        email: 'dev@cordova.apache.org' },
+87 silly resolved     keywords: [ 'cordova', 'client', 'cli' ],
+87 silly resolved     dependencies:
+87 silly resolved      { 'cordova-lib': '4.3.0',
+87 silly resolved        q: '1.0.1',
+87 silly resolved        nopt: '3.0.1',
+87 silly resolved        underscore: '1.7.0' },
+87 silly resolved     devDependencies:
+87 silly resolved      { istanbul: '^0.3.4',
+87 silly resolved        grunt: '0.4.5',
+87 silly resolved        'grunt-retire': '0.3.7',
+87 silly resolved        'jasmine-node': '1.14.5' },
+87 silly resolved     author: { name: 'Anis Kadri' },
+87 silly resolved     contributors:
+87 silly resolved      [ [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object] ],
+87 silly resolved     license: 'Apache version 2.0',
+87 silly resolved     _id: 'cordova@4.3.0',
+87 silly resolved     _shasum: '3386c35f454591eee58458584a6006f7bfcb3f0c',
+87 silly resolved     _resolved: 'https://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz',
+87 silly resolved     _from: 'cordova@',
+87 silly resolved     _npmVersion: '2.5.1',
+87 silly resolved     _nodeVersion: '0.10.36',
+87 silly resolved     _npmUser: { name: 'stevegill', email: 'stevengill97@gmail.com' },
+87 silly resolved     maintainers:
+87 silly resolved      [ [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object],
+87 silly resolved        [Object] ],
+87 silly resolved     dist:
+87 silly resolved      { shasum: '3386c35f454591eee58458584a6006f7bfcb3f0c',
+87 silly resolved        tarball: 'http://registry.npmjs.org/cordova/-/cordova-4.3.0.tgz' },
+87 silly resolved     directories: {} },
+87 silly resolved   { name: 'ionic',
+87 silly resolved     version: '1.3.18',
+87 silly resolved     preferGlobal: true,
+87 silly resolved     description: 'A tool for creating and developing Ionic Framework mobile apps.',
+87 silly resolved     homepage: 'http://ionicframework.com/',
+87 silly resolved     bin: { ionic: 'bin/ionic' },
+87 silly resolved     scripts:
+87 silly resolved      { bump: 'node lib/tasks/bumpversion',
+87 silly resolved        'beta-bump': 'node lib/tasks/bumpversion --level pre --identifier beta',
+87 silly resolved        'publish-release': 'node lib/tasks/bumpversion --npmPublish',
+87 silly resolved        'publish-tag': 'node lib/tasks/bumpversion --level beta --npmPublishTag',
+87 silly resolved        'full-release': 'node lib/tasks/bumpversion --npmInstall --git --npmPublish' },
+87 silly resolved     keywords:
+87 silly resolved      [ 'ionic',
+87 silly resolved        'ionic framework',
+87 silly resolved        'ionicframework',
+87 silly resolved        'mobile',
+87 silly resolved        'app',
+87 silly resolved        'hybrid',
+87 silly resolved        'cordova',
+87 silly resolved        'phonegap' ],
+87 silly resolved     repository:
+87 silly resolved      { type: 'git',
+87 silly resolved        url: 'https://github.com/driftyco/ionic-cli.git' },
+87 silly resolved     contributors: [ [Object], [Object], [Object], [Object] ],
+87 silly resolved     license: 'MIT',
+87 silly resolved     dependencies:
+87 silly resolved      { archiver: '0.5.1',
+87 silly resolved        async: '^0.9.0',
+87 silly resolved        colors: '0.6.2',
+87 silly resolved        connect: '3.1.1',
+87 silly resolved        'connect-livereload': '0.5.2',
+87 silly resolved        crc: '3.2.1',
+87 silly resolved        'cross-spawn': '0.2.3',
+87 silly resolved        'event-stream': '3.0.x',
+87 silly resolved        finalhandler: '0.2.0',
+87 silly resolved        'form-data': '0.1.4',
+87 silly resolved        gulp: '3.8.8',
+87 silly resolved        ncp: '0.4.2',
+87 silly resolved        npm: '2.1.3',
+87 silly resolved        'opbeat-ionic': '^1.1.3',
+87 silly resolved        open: 'https://registry.npmjs.org/open/-/open-0.0.5.tgz',
+87 silly resolved        optimist: '0.6.0',
+87 silly resolved        progress: '1.1.7',
+87 silly resolved        prompt: '0.2.12',
+87 silly resolved        'proxy-middleware': '^0.7.0',
+87 silly resolved        q: '1.0.1',
+87 silly resolved        request: '2.51.0',
+87 silly resolved        semver: '^4.2.0',
+87 silly resolved        'serve-static': '1.7.1',
+87 silly resolved        shelljs: '0.2.6',
+87 silly resolved        'tiny-lr-fork': '0.0.5',
+87 silly resolved        underscore: '~1.7.0',
+87 silly resolved        unzip: '0.1.9',
+87 silly resolved        'vinyl-fs': '0.3.7',
+87 silly resolved        xml2js: '0.4.4' },
+87 silly resolved     gitHead: '9b9c0eb1ea70d932fda9c57fc2a7c505d9ceae12',
+87 silly resolved     bugs: { url: 'https://github.com/driftyco/ionic-cli/issues' },
+87 silly resolved     _id: 'ionic@1.3.18',
+87 silly resolved     _shasum: 'd7775e2020bcf42153ee4ba6e201cba3f7f7df29',
+87 silly resolved     _from: 'ionic@',
+87 silly resolved     _npmVersion: '2.5.1',
+87 silly resolved     _nodeVersion: '0.10.33',
+87 silly resolved     _npmUser: { name: 'drifty', email: 'max@drifty.com' },
+87 silly resolved     maintainers: [ [Object], [Object], [Object] ],
+87 silly resolved     dist:
+87 silly resolved      { shasum: 'd7775e2020bcf42153ee4ba6e201cba3f7f7df29',
+87 silly resolved        tarball: 'http://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz' },
+87 silly resolved     directories: {},
+87 silly resolved     _resolved: 'https://registry.npmjs.org/ionic/-/ionic-1.3.18.tgz' } ]
+88 info install cordova@4.3.0 into /usr/local/lib
+89 info install ionic@1.3.18 into /usr/local/lib
+90 info installOne cordova@4.3.0
+91 info installOne ionic@1.3.18
+92 verbose lib/node_modules/cordova unbuild
+93 verbose lib/node_modules/ionic unbuild
+94 verbose tar unpack /Users/tom/.npm/cordova/4.3.0/package.tgz
+95 silly lockFile 9557e84b-r-local-lib-node-modules-cordova tar:///usr/local/lib/node_modules/cordova
+96 verbose lock tar:///usr/local/lib/node_modules/cordova /Users/tom/.npm/9557e84b-r-local-lib-node-modules-cordova.lock
+97 silly lockFile 19a2d9d6-om-npm-cordova-4-3-0-package-tgz tar:///Users/tom/.npm/cordova/4.3.0/package.tgz
+98 verbose lock tar:///Users/tom/.npm/cordova/4.3.0/package.tgz /Users/tom/.npm/19a2d9d6-om-npm-cordova-4-3-0-package-tgz.lock
+99 verbose tar unpack /Users/tom/.npm/ionic/1.3.18/package.tgz
+100 silly lockFile 49903aa3-usr-local-lib-node-modules-ionic tar:///usr/local/lib/node_modules/ionic
+101 verbose lock tar:///usr/local/lib/node_modules/ionic /Users/tom/.npm/49903aa3-usr-local-lib-node-modules-ionic.lock
+102 silly lockFile 8b65ffef-tom-npm-ionic-1-3-18-package-tgz tar:///Users/tom/.npm/ionic/1.3.18/package.tgz
+103 verbose lock tar:///Users/tom/.npm/ionic/1.3.18/package.tgz /Users/tom/.npm/8b65ffef-tom-npm-ionic-1-3-18-package-tgz.lock
+104 silly gunzTarPerm modes [ '755', '644' ]
+105 silly gunzTarPerm modes [ '755', '644' ]
+106 error Error: EACCES, mkdir '/usr/local/lib/node_modules/cordova'
+106 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/cordova']
+106 error   errno: 3,
+106 error   code: 'EACCES',
+106 error   path: '/usr/local/lib/node_modules/cordova',
+106 error   fstream_type: 'Directory',
+106 error   fstream_path: '/usr/local/lib/node_modules/cordova',
+106 error   fstream_class: 'DirWriter',
+106 error   fstream_stack:
+106 error    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23',
+106 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53',
+106 error      'Object.oncomplete (fs.js:107:15)' ] }
+107 error Please try running this command again as root/Administrator.
+108 error System Darwin 14.1.0
+109 error command "node" "/usr/local/bin/npm" "install" "-g" "--save" "cordova" "ionic"
+110 error cwd /Users/tom/Uni/DECO3800/sacerdos
+111 error node -v v0.10.33
+112 error npm -v 1.4.28
+113 error path /usr/local/lib/node_modules/cordova
+114 error fstream_path /usr/local/lib/node_modules/cordova
+115 error fstream_type Directory
+116 error fstream_class DirWriter
+117 error code EACCES
+118 error errno 3
+119 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/cordova'
+120 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
+120 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53
+120 error fstream_stack Object.oncomplete (fs.js:107:15)
+121 verbose exit [ 3, true ]

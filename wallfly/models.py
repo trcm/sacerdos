@@ -1,6 +1,7 @@
 from django.db import models
 from django_extensions.db.fields import UUIDField
 from django.contrib.auth.models import User
+from django_resized import ResizedImageField
 
 
 class Agent(models.Model):
@@ -13,12 +14,14 @@ class Agent(models.Model):
      real_estate(string) - agents real estate
      email(string)       - agents email
     """
-
     agent_id = UUIDField(auto=True)
     contact_num = models.CharField(max_length=12, null=False)
     real_estate = models.CharField(max_length=100, null=False)
     email = models.EmailField(null=False)
 
+    def __unicode__(self):
+        return "%s" % self.agent_id
+    
 class Owner(models.Model):
 
     """
@@ -60,16 +63,18 @@ class Property(models.Model):
     """
 
     property_id = UUIDField(auto=True)
-    address = models.CharField(max_length=200, blank=False, null=False)
-    status = models.IntegerField(unique=True, null=False)
+    address = models.CharField(unique=True, max_length=200, blank=False, null=False)
+    status = models.IntegerField(null=False)
     owner_id = models.ForeignKey(Owner, null=True)
-    agent_id = models.ForeignKey(Agent, null=True)
+    agent_id = models.ForeignKey(Agent, null=True, related_name='properties')
     num_tenants = models.IntegerField(null=True)
     name = models.CharField(max_length=200)
-    property_image = models.ImageField(null=True)
+    # property_image = models.ImageField(null=True)
+    property_image = ResizedImageField(size=[500,300], null=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
+
 
 class Tenant(models.Model):
 
@@ -142,5 +147,20 @@ Financial - Model representing the finanal data for a property
 
 
 class WFUser(models.Model):
-    user = models.OneToOneField(User)
+    """
+    WFUser represents a Wallfly user.
+    user - foreign key to a django user object
+    user_level - denotes the level of the user in the system
+    (1 - agent, 2 - owner, 3 - tenant)
+
+    """
+
     
+    user = models.OneToOneField(User)
+    user_level = models.IntegerField(default=0)
+    tenant_id = models.ForeignKey(Tenant, null=True, blank=True)
+    owner_id = models.ForeignKey(Owner, null=True, blank=True)
+    agent_id = models.ForeignKey(Agent, null=True, blank=True)
+
+    def __unicode__(self):
+        return "%s" % self.user

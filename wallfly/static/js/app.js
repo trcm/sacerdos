@@ -12,9 +12,10 @@ angular.module('wallfly',
         controller: 'HomeController',
 	resolve: {
 	  resolveProperties: ['$http', function($http) {
-	    return $http.get('/property').success(function(data) {
-	      return data.data;
-	    });
+	      // returns all the properties from the database
+	      return $http.get('/user/2').success(function(data) {
+		return data.data;
+	      });
 	  }]
 	}})
       .otherwise({redirectTo: '/'});

@@ -55,5 +55,6 @@
 		<script src="{{ STATIC_URL }}js/home/home-controller.js"></script>
 		<script src="{{ STATIC_URL }}js/home/home-services.js"></script>
 		<script src="{{ STATIC_URL }}js/home/home-router.js"></script>
+		<img style="display:block; margin-right:auto; margin-left:auto;" alt="" src="{{ STATIC_URL }}/img/django.jpg"/>
 	</body>
 </html>

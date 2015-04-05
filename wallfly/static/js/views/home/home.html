@@ -2,7 +2,11 @@
 <h3>{{ test }}</h3>
 
 <h4>Properties</h4>
-<ul ng-repeat="prop in properties">
-	<li>{{ prop }}</li>
-</ul>
 
+{{ properties }}
+
+<ul ng-repeat="p in properties.props">
+	<li>
+		{{ p }}
+	</li>
+</ul>
