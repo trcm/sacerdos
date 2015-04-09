@@ -57,8 +57,6 @@ class PropertyDetail(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    
-    
     def get(self, request, pk, format=None):
         print pk
         ret = {}
@@ -74,7 +72,7 @@ class PropertyDetail(APIView):
             ten = Tenant.objects.get(property_id=prop)
             tenSerialized = TenantSerializer(ten)
             ret['tenant'] = tenSerialized.data
-            
+
             return Response(ret, status=200)
         except Property.DoesNotExist:
             raise Http404
@@ -83,7 +81,7 @@ class PropertyDetail(APIView):
             ret['tenant'] = 'NA'
             return Response(ret, status=200)
 
-    
+
 class PropertyView(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -140,7 +138,7 @@ class UserDetail(APIView):
 
                 for p in ps.data:
                     p['status_string'] = convertStatusToString(p['status'])
-                
+
                 ret = us.data
                 ret['props'] = ps.data
                 return Response(ret)
@@ -174,12 +172,12 @@ class IssueList(APIView):
             issues = Issue.objects.filter(property_id=prop)
             issueSerialized = IssueSerializer(issues, many=True)
             return Response(issueSerialized.data, status=200)
-            
+
         except Property.DoesNotExist:
             raise Http404
 
-        
-        
+
+
 class IssueDetail(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -213,8 +211,22 @@ class IssueDetail(APIView):
             request.data['property_id'] = prop.id
             issue = IssueSerializer(data=request.data)
             if issue.is_valid():
-                
+
                 issue.save()
+
+                # update the severity of the status of the property
+                issues = Issue.objects.filter(property_id=prop)
+
+                highest = 0
+                for i in issues:
+                    print "severity", i.severity
+                    if i.severity > highest:
+                       print highest
+                       highest = i.severity
+                prop.status = highest
+                print highest
+                prop.save()
+
                 return Response(issue.data)
             else:
                 return Response(issue.errors)
@@ -226,3 +238,29 @@ class IssueDetail(APIView):
             print e
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        try:
+            issue = Issue.objects.get(id=pk)
+            print issue
+            prop = issue.property_id
+            print prop
+            issue.delete()
+
+            
+            issues = Issue.objects.filter(property_id=prop)
+
+            highest = 1
+            for i in issues:
+                print "severity", i.severity
+                if i.severity > highest:
+                    highest = i.severity
+            prop.status = highest
+            print highest
+            prop.save()
+
+
+            return Response(status=204)
+
+        except Issue.DoesNotExist:
+            raise Http404
