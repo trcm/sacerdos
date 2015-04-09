@@ -80,6 +80,7 @@ class Property(models.Model):
     agent_id = models.ForeignKey(Agent, null=True, related_name='properties')
     num_tenants = models.IntegerField(null=True)
     name = models.CharField(max_length=200)
+
     # property_image = models.ImageField(null=True)
     property_image = ResizedImageField(size=[500,300], null=True)
 

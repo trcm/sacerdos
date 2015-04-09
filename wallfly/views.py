@@ -9,7 +9,7 @@ from rest_framework.exceptions import APIException
 from rest_framework import status
 
 from wallfly.models import *
-from wallfly.serializers import PropertySerializer, AgentSerializer, UserSerializer, IssueSerializer
+from wallfly.serializers import PropertySerializer, AgentSerializer, UserSerializer, IssueSerializer, TenantSerializer
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -57,18 +57,32 @@ class PropertyDetail(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    
+    
     def get(self, request, pk, format=None):
         print pk
+        ret = {}
         try:
             prop = Property.objects.get(id=pk)
             ps = PropertySerializer(prop)
 
             ret = ps.data.copy()
             ret['status_string'] = convertStatusToString(ret['status'])
+
+            # get the tenatn information
+
+            ten = Tenant.objects.get(property_id=prop)
+            tenSerialized = TenantSerializer(ten)
+            ret['tenant'] = tenSerialized.data
             
             return Response(ret, status=200)
-        except:
+        except Property.DoesNotExist:
             raise Http404
+        except Tenant.DoesNotExist:
+            # there's no tenant just return the data
+            ret['tenant'] = 'NA'
+            return Response(ret, status=200)
+
     
 class PropertyView(APIView):
     authentication_classes = (TokenAuthentication,)
@@ -148,11 +162,30 @@ class UserDetail(APIView):
         except WFUser.DoesNotExist:
             raise Http404
 
+
+class IssueList(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    # get all the issues for a property
+    def get(self, request, pk, format=None):
+        try:
+            prop = Property.objects.get(id=pk)
+            issues = Issue.objects.filter(property_id=prop)
+            issueSerialized = IssueSerializer(issues, many=True)
+            return Response(issueSerialized.data, status=200)
+            
+        except Property.DoesNotExist:
+            raise Http404
+
+        
+        
 class IssueDetail(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     # get all the details for an issue
+    # TODO
     def get(self, request, pk, format=None):
 
         errors = {}
@@ -169,9 +202,27 @@ class IssueDetail(APIView):
             errors["PropertyError"] = "Property Doesn't exist"
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(prop);
+        return Response(prop)
 
-    # create an issue
-    def post(self, request, format=None):
+    # create an issue, pk is the primary key id of the property of the issue
+    def post(self, request, pk, format=None):
+        print "new issue request"
 
-        pass
+        try:
+            prop = Property.objects.get(id=pk)
+            request.data['property_id'] = prop.id
+            issue = IssueSerializer(data=request.data)
+            if issue.is_valid():
+                
+                issue.save()
+                return Response(issue.data)
+            else:
+                return Response(issue.errors)
+
+        except Property.DoesNotExist:
+            raise Http404
+
+        except Exception as e:
+            print e
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -9,6 +9,11 @@ angular.module('wallfly')
 	    return $http.get('/property/' + $route.current.params.id).success(function(data) {
 	      return data.data;
 	    });
+	  }],
+	  issues: ['$http', '$route', function($http, $route) {
+	    return $http.get('/issues/' + $route.current.params.id).success(function(data) {
+	      return data.data;
+	    });
 	  }]
         }
       });

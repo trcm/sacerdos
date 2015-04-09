@@ -1,5 +1,47 @@
 <h1>Property</h1>
 
+<script type="text/ng-template" id="issue-create.html">
+	
+
+		
+		<form ng-submit="ok()" action="">
+			<div class="modal-header">
+				<button type="button" class="close"
+					ng-click="cancel()">&times;</button>
+				<h4 class="modal-title" id="mySkillsLabel">Create or edit a Skills</h4>
+			</div>
+			
+			<div class="modal-body">
+
+				<div class="form-group">
+					<label>Issue Severity</label>
+				
+					<input type="number" class="form-control" name="severity"
+						min="1" max="3"
+						ng-model="issue.severity" ng-required="true"
+						/>
+				</div>
+				
+				<div class="form-group">
+					<label>Description:</label>
+					
+					<input type="text" class="form-control" name="description"
+						ng-model="issue.description" ng-required="true"
+						ng-maxlength=1000
+						/>
+					<span class="error" ng-show="form.description.$error.minlength">Must be at least  characters.</span>
+					<span class="error" ng-show="form.description.$error.maxlength">Must be at most 1000 characters.</span>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+					</button>
+					<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+				</div>
+		</form>
+	</div>
+
+</script>
 
 
 <div class="{{ prop.status_string }}">
@@ -7,4 +49,13 @@
 	<h3>{{ prop.name }}</h3>
 	<p>{{ prop.status }}</p>
 	<p>{{ prop.address }}</p>
+	<p>Tenants: {{ prop.tenant }}</p>
+	<p>Agent: {{ prop.agent_id}}</p>
+
+	<ul ng-repeat="issue in issues">
+		<li>{{ issue }}</li>
+	</ul>
+	
+	<button ng-click="createIssue(prop)" class="btn btn-danger">Create Issue</button>
 </div>
+

@@ -11,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'agent/(?P<pk>[0-9]+)$', views.AgentView.as_view(), name='agent'),
                        url(r'user/(?P<pk>[0-9]+)$', views.UserDetail.as_view(), name='user'),
                        url(r'issue/(?P<pk>[0-9]+)$', views.IssueDetail.as_view(), name='issue'),
+                       url(r'issues/(?P<pk>[0-9]+)$', views.IssueList.as_view(), name='issue'),
                        url(r'^$', views.home, name='index'),
                        # url(r'.*$', views.home, name='index')
 )

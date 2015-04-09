@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from wallfly.models import Property, Agent, WFUser, Issue
+from wallfly.models import Property, Agent, WFUser, Issue, Tenant
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,3 +38,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = WFUser
         depth = 3
+
+class TenantSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tenant
