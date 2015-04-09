@@ -1,12 +1,15 @@
 <h1>Home view</h1>
-<h3>{{ test }}</h3>
 
 <h4>Properties</h4>
 
-{{ properties }}
-
 <ul ng-repeat="p in properties.props">
-	<li>
-		{{ p }}
+
+	<li class="{{ p.status_string }}">
+		<img alt="" ng-src="{{ p.property_image }}"/>
+		<h3>{{ p.name }}</h3>
+		<p>{{ p.status }}</p>
+		<p>{{ p.address }}</p>
 	</li>
+	
 </ul>
+

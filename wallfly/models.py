@@ -4,6 +4,17 @@ from django.contrib.auth.models import User
 from django_resized import ResizedImageField
 
 
+## Token auth
+from django.conf import settings
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from rest_framework.authtoken.models import Token
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
+
 class Agent(models.Model):
     """
     Agent - Model representing the real estate agents in the database
@@ -20,7 +31,7 @@ class Agent(models.Model):
     email = models.EmailField(null=False)
 
     def __unicode__(self):
-        return "%s" % self.agent_id
+        return "%s" % self.email
     
 class Owner(models.Model):
 
