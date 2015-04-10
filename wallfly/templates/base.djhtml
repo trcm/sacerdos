@@ -46,6 +46,5 @@
 		<script src="{{ STATIC_URL }}js/property/property-router.js"></script>
 		<script src="{{ STATIC_URL }}js/property/property-controller.js"></script>
 
-		<img style="display:block; margin-right:auto; margin-left:auto;" alt="" src="{{ STATIC_URL }}/img/django.jpg"/>
 	</body>
 </html>
