@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 from django_resized import ResizedImageField
 
 
-## Token auth
+# Token auth libraries
 from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
 
+
+# Called after the creation of a new user to create a new Token for authentication
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
@@ -164,7 +166,9 @@ class WFUser(models.Model):
     user - foreign key to a django user object
     user_level - denotes the level of the user in the system
     (1 - agent, 2 - owner, 3 - tenant)
-
+    tenant_id (ForeignKey(Tenant)) - either null or the id of the Tenant
+    owner_id (ForeignKey(Owner)) - either null or the id of the Owner
+    agent_id (ForeignKey(Tenant)) - either null or the id of the Agent
     """
 
     

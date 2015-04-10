@@ -1,7 +1,7 @@
 {
     "name": "Wallfly",
-    "version": "0.0.0",
-    "description": "Description for stew",
+    "version": "0.0.1",
+    "description": "Real estate management tool",
     "scripts": {
 	"start": "node app.js"
     },

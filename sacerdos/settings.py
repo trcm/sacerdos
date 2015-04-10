@@ -1,5 +1,5 @@
 """
-Django settings for sacerdos project.
+Django settings for Sacerdos project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -59,8 +59,8 @@ WSGI_APPLICATION = 'sacerdos.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+# Current testing database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

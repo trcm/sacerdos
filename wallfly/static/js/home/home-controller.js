@@ -1,9 +1,9 @@
 angular.module('wallfly')
-  .controller('HomeController', ['$scope', '$http', 'resolveProperties', 'Property',function($scope, $http, resolveProperties, Property) {
+  .controller('HomeController', ['$scope', '$http', '$window', 'resolveProperties', 'Property',function($scope, $http, $window, resolveProperties, Property) {
     // use the ReolveProperties method in the application
-    // router to get all the properties from the database
     $scope.properties = resolveProperties.data;
-    console.log($scope.properties);
-    $scope.test = "test";
+    // router to get all the properties from the database
+    // set the user variable
+    $scope.user = $window.sessionStorage.user;
     
   }]);

@@ -1,14 +1,13 @@
-<h1>Home view</h1>
-
-<h4>Properties</h4>
+<ng-include src=" 'static/js/views/navbar.html'"></ng-include>
 
 <ul ng-repeat="p in properties.props">
 
 	<li class="{{ p.status_string }}">
 		<img alt="" ng-src="{{ p.property_image }}"/>
 		<h3>{{ p.name }}</h3>
-		<p>{{ p.status }}</p>
 		<p>{{ p.address }}</p>
+		<p>Property Status: {{ p.status }}</p>
+		<p>Issues: {{ p.issues.length }}</p>
 		<a href="/#/property/{{ p.id }}">Info</a>
 	</li>
 	

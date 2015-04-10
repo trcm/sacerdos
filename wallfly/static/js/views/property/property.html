@@ -1,4 +1,4 @@
-<h1>Property</h1>
+<ng-include src=" 'static/js/views/navbar.html'"></ng-include>
 
 <script type="text/ng-template" id="issue-create.html">
 	<form ng-submit="ok()"
@@ -47,15 +47,63 @@
 	<p>{{ prop.address }}</p>
 	<p>Tenants: {{ prop.tenant }}</p>
 	<p>Agent: {{ prop.agent_id}}</p>
-
-	<ul ng-repeat="issue in issues">
-		<li>{{ issue.severity }} - {{ issue.description }}</li>
-		<button id="deleteBtn" type="button" ng-click="deleteIssue(issue)" class="btn btn-sm btn-danger deleteUser">
-			<i class="glyphicon glyphicon-remove-circle">
-			</i>
-		</button>
-	</ul>
-	
-	<button ng-click="createIssue(prop)" class="btn btn-danger">Create Issue</button>
 </div>
-
+	
+<button ng-click="createIssue(prop)" class="btn btn-danger">Create Issue</button>
+<h4>Issues</h4>
+<table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
+	<thead>
+		<tr>
+			<th colspan="5"><input st-search="" class="form-control" placeholder="Search..." type="search"/></th>
+		</tr>
+		<tr>
+			<th st-sort="severity">Severity</th>
+			<th st-sort="description">Description</th>
+			<th st-sort="progress">Resolution</th>
+			<th>Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="row in issues" ng-hide="row.resolved">
+			<td>{{row.severity}}</td>
+			<td>{{row.description}}</td>
+			<td>
+				<button id="resolveBtn" ng-click="resolveIssue(row)" class="btn btn-sm">Resolve </button>
+			</td>
+			<td>
+				<button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle">
+					</i>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>       
+	
+<h4>Issue history</h4>
+<table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
+	<thead>
+		<tr>
+			<th colspan="5"><input st-search="" class="form-control" placeholder="Search..." type="search"/></th>
+		</tr>
+		<tr>
+			<th st-sort="severity">Severity</th>
+			<th st-sort="description">Description</th>
+			<th st-sort="progress">Resolution</th>
+			<th>Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="row in issues" >
+			<td>{{row.severity}}</td>
+			<td>{{row.description}}</td>
+			<td>{{ row.resolved }}</td>
+			<td>
+				<button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
+					<i class="glyphicon glyphicon-remove-circle">
+					</i>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>       
