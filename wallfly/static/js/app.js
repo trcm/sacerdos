@@ -7,7 +7,8 @@ angular.module('wallfly',
 		'ui.date',
 		'smart-table',
 		'angularSpinner',
-		'ngLodash'])
+		'ngLodash',
+	        'ui.calendar'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -24,6 +25,9 @@ angular.module('wallfly',
       .when('/login', {
 	templateUrl: 'static/js/views/login.html',
 	controller: 'authController'})
+      .when('/calendar',{
+	templateUrl: 'static/js/views/calendar.html',
+	controller: 'CalController'})
       .otherwise({redirectTo: '/'});
   }])
   .config(['$httpProvider', function($httpProvider) {

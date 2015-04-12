@@ -11,6 +11,9 @@
 		<link href="{{ STATIC_URL }}js/libs/bootstrap-css/css/bootstrap.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}js/libs/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 		<link href="{{ STATIC_URL }}css/app.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}js/libs/fullcalendar/dist/fullcalendar.css"/>
+		<link href="{{ STATIC_URL }}css/CalendarDemo.css"/>
+		
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -29,7 +32,9 @@
 					<ul class="nav navbar-nav">
 						<li>
 							<a href="/#/login">Login</a>
-						</li>
+						</li>	
+						<li>
+							<a href="/#/calendar">calendar</a>
 						
 					</ul>
 				</div>
@@ -39,8 +44,14 @@
 		</nav>
 		<div class="container" ng-view></div>
 
+		<!-- calender scripts -->
+		
+
+
+		<!-- other scripts -->
+
 		<script src="{{ STATIC_URL }}js/libs/jquery/dist/jquery.js"></script>
-		<script src="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.js"></script>
+		<script src="{{ STATIC_URL }}js/libs/jquery-ui/ui/jquery-ui.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/lodash/dist/lodash.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular/angular.js"></script>
@@ -57,11 +68,20 @@
 		<script src="{{ STATIC_URL }}js/libs/ng-lodash/build/ng-lodash.min.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-smart-table/dist/smart-table.min.js"></script>
 
+    		<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
+
 		<script src="{{ STATIC_URL }}js/app.js"></script>
-		
+		<script src="{{ STATIC_URL }}js/libs/moment/moment.js"></script>
+    		<script src="{{ STATIC_URL }}js/libs/fullcalendar/dist/fullcalendar.js"></script>
+    		<script src="{{ STATIC_URL }}js/libs/fullcalendar/dist/gcal.js"></script>
+    		<script src="{{ STATIC_URL }}js/libs/angular-ui-calendar/src/calendar.js"></script>	
+
 		<script src="{{ STATIC_URL }}js/home/home-controller.js"></script>
 		<script src="{{ STATIC_URL }}js/home/home-services.js"></script>
 		<script src="{{ STATIC_URL }}js/home/home-router.js"></script>
+
+		<script src="{{ STATIC_URL }}js/home/calendar-controller.js"><</script>
+
 		
 		<script src="{{ STATIC_URL }}js/property/property-services.js"></script>
 		<script src="{{ STATIC_URL }}js/property/property-router.js"></script>
