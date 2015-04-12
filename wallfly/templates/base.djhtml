@@ -42,6 +42,8 @@
 		<script src="{{ STATIC_URL }}js/home/home-services.js"></script>
 		<script src="{{ STATIC_URL }}js/home/home-router.js"></script>
 		
+		<script src="{{ STATIC_URL }}js/nav/navbar-controller.js"></script>
+		
 		<script src="{{ STATIC_URL }}js/property/property-services.js"></script>
 		<script src="{{ STATIC_URL }}js/property/property-router.js"></script>
 		<script src="{{ STATIC_URL }}js/property/property-controller.js"></script>

@@ -17,10 +17,12 @@ angular.module('wallfly',
 	resolve: {
 	  // grab all the properties for the user with id 2
 	  // will be changed to a dynamic lookup in future versions
-	  resolveProperties: ['$http', function($http) {
+	  resolveProperties: ['$http', '$location', function($http, $location) {
 	    // returns all the properties from the database
 	    return $http.get('/user/2').success(function(data) {
 	      return data.data;
+	    }).error(function() {
+	      $location.path('/login');
 	    });
 	  }]
 	}})
@@ -127,7 +129,6 @@ angular.module('wallfly',
 	}
       },
       logout: function() {
-	console.log("clear");
 	localStorageService.cookie.clearAll();
 	localStorageService.cookie.clearAll();
       }
@@ -146,7 +147,7 @@ angular.module('wallfly',
 	},
 	response: function (response) {
 	  if (response.status === 401) {
-	    console.log("not auth");
+	    $location.path('/login');
 	  }
 	  return response || $q.when(response);
 	}
