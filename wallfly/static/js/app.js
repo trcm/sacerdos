@@ -17,16 +17,17 @@ angular.module('wallfly',
 	resolve: {
 	  // grab all the properties for the user with id 2
 	  // will be changed to a dynamic lookup in future versions
-	  resolveProperties: ['$http', '$location', function($http, $location) {
+	  resolveProperties: ['$http', '$location', '$window', function($http, $location, $window) {
 	    // returns all the properties from the database
-	    return $http.get('/user/2').success(function(data) {
+	    return $http.get('/user/' + $window.sessionStorage.id).success(function(data) {
+	      // return $http.get('/user/2').success(function(data) {
 	      return data.data;
 	    }).error(function() {
 	      $location.path('/login');
 	    });
 	  }]
 	}})
-      // redirect information for the login controller
+    // redirect information for the login controller
       .when('/login', {
 	templateUrl: 'static/js/views/login.html',
 	controller: 'authController'})
@@ -80,6 +81,7 @@ angular.module('wallfly',
 	  $http.get('/auth/').success(function(data) {
 	    token.storeUser(data.user);
 	    $window.sessionStorage.user = data.user;
+	    $window.sessionStorage.id = data.id;
 	    $location.path('/');
 	  });
 	})
@@ -137,19 +139,19 @@ angular.module('wallfly',
   .factory('authInterceptor', function ($rootScope, $q, $window, $location) {
     // authIntercepter is used inbetween http calls to append the Authorization
     // token to the request and also so handle invalid responses
-      return {
-	request: function (config) {
-	  config.headers = config.headers || {};
-	  if ($window.sessionStorage.token) {
-            config.headers.Authorization = 'Token ' + $window.sessionStorage.token;
-	  }
-	  return config;
-	},
-	response: function (response) {
-	  if (response.status === 401) {
-	    $location.path('/login');
-	  }
-	  return response || $q.when(response);
+    return {
+      request: function (config) {
+	config.headers = config.headers || {};
+	if ($window.sessionStorage.token) {
+          config.headers.Authorization = 'Token ' + $window.sessionStorage.token;
 	}
-      };
+	return config;
+      },
+      response: function (response) {
+	if (response.status === 401) {
+	  $location.path('/login');
+	}
+	return response || $q.when(response);
+      }
+    };
   });

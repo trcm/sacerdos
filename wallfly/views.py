@@ -5,10 +5,11 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from wallfly.models import *
+from wallfly.permissions import IsRelatedToUser
 from wallfly.serializers import PropertySerializer, AgentSerializer, UserSerializer, IssueSerializer, TenantSerializer, WFUserSerializer
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authtoken.models import Token
 
 from django.shortcuts import render
@@ -31,11 +32,13 @@ def home(request):
 
 # Converts a property status into a string for the css class in the template
 def convertStatusToString(status):
-    if status is 1:
+    print status
+    print type(status)
+    if status == 1:
         return "one"
-    elif status is 2:
+    elif status == 2:
         return "two"
-    elif status is 3:
+    elif status == 3:
         return "three"
 
 
@@ -53,9 +56,12 @@ class AuthView(APIView):
     serializer_class = UserSerializer
 
     def get(self, request, format=None):
+        
+        userToken = Token.objects.get(key=request.auth)
         content = {
             'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-            'auth': unicode(request.auth),  # None
+            'auth': unicode(request.auth),
+            'id'  : userToken.user_id
         }
         return Response(content)
 
@@ -71,7 +77,7 @@ class PropertyDetail(APIView):
     Returns a JSON object containing the details for a property
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsRelatedToUser, )
 
     def get(self, request, pk, format=None):
         print pk
@@ -80,7 +86,7 @@ class PropertyDetail(APIView):
             # get and serialize the property
             prop = Property.objects.get(id=pk)
             ps = PropertySerializer(prop)
-
+            self.check_object_permissions(request, prop)
             # make a mutable copy and add the status string to the copy
             ret = ps.data.copy()
             ret['status_string'] = convertStatusToString(ret['status'])
@@ -116,7 +122,7 @@ class PropertyView(APIView):
 
     def get(self, request, format=None):
         ## hardcoded agent id BAD BAD
-        agent = WFUser.objects.get(id=2)
+        agent = WFUser.objects.get(id=1)
         print agent
         print agent.agent_id
 
@@ -174,10 +180,12 @@ class UserDetail(APIView):
 
         try:
             # try grabbing and serializing the WFUser object for the user
+            print 'grabbing user'
             u = WFUser.objects.get(id=pk)
             us = WFUserSerializer(u)
 
             if u.user_level == AGENT:
+                print 'agent'
                 # grab all the properties for the user
                 props = Property.objects.filter(agent_id=u.agent_id)
                 for p in props:
@@ -213,12 +221,17 @@ class UserDetail(APIView):
             elif u.user_level == TENANT:
                 # user is a tenant, grab their property
                 # this  will also include issues
-                # TODO ISSUES
-                prop = Property.objects.get(u.property_id)
-                ps = PropertySerializer(prop)
-                ret = us.data
-                ret['prop'] = ps.data
-                return Response(ret)
+                try:
+                    prop = u.tenant_id.property_id
+                    prop.status_string = convertStatusToString(prop.status)
+                    ps = PropertySerializer(prop)
+                    ret = us.data
+                    ret['prop'] = ps.data
+                    ret['prop']['status_string'] = convertStatusToString(prop.status)
+                    return Response(ret)
+                except Exception as e:
+                    print e
+                    raise Http404
 
         # User doesn't exist raise 404
         except WFUser.DoesNotExist:
