@@ -3,6 +3,11 @@ from models import *
 
 class IsRelatedToUser(permissions.BasePermission):
 
+    """
+    IsRelatedToUser
+    Ensures that a user can only retrieve objects from the database that they have permission to view
+    eg. A tenant can only see their own property, an agent can only see the propertis they manage.
+    """
     def has_object_permission(self, request, view, obj):
 
         AGENT  = 1
@@ -30,4 +35,21 @@ class IsRelatedToUser(permissions.BasePermission):
                 return True
         
         
+        return False
+
+class IsOwnUser(permissions.BasePermission):
+
+    """
+    This permission will only let a user access their own details
+    """
+    def has_object_permission(self, request, view, obj):
+        print "checking wfuser persmission"
+
+        tok = Token.objects.get(key=request.auth)
+        # checking permsission
+        wfUser = tok.user.wfuser
+
+        if obj == wfUser:
+            return True
+
         return False

@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from wallfly.models import *
-from wallfly.permissions import IsRelatedToUser
+from wallfly.permissions import IsRelatedToUser, IsOwnUser
 from wallfly.serializers import PropertySerializer, AgentSerializer, UserSerializer, IssueSerializer, TenantSerializer, WFUserSerializer
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
@@ -174,7 +174,7 @@ class UserDetail(APIView):
 
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwnUser, )
 
     def get(self, request, pk, format=None):
 
@@ -182,8 +182,11 @@ class UserDetail(APIView):
             # try grabbing and serializing the WFUser object for the user
             print 'grabbing user'
             u = WFUser.objects.get(id=pk)
-            us = WFUserSerializer(u)
+            print u
+            self.check_object_permissions(request, u)
 
+            us = WFUserSerializer(u)
+            
             if u.user_level == AGENT:
                 print 'agent'
                 # grab all the properties for the user
