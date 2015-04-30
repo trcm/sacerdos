@@ -62,3 +62,12 @@ body {
 
 nav {
 }
+
+/* Home View */
+
+#createBtn {
+	text-align: right;
+	background-color: #2d3d4e;	
+	border-color: #2d3d4e;
+	color: white;
+}

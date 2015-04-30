@@ -28,7 +28,7 @@ class PropertySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Property
-        depth = 3
+        depth = 1
 
 
 class AgentSerializer(serializers.ModelSerializer):
