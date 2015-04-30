@@ -2,7 +2,6 @@ body {
 	margin-top: 70px;
 }
 
-
 .one {
 	background-color: green;
 }
@@ -15,3 +14,51 @@ body {
 	background-color: red;
 }
 
+#loginLogo {
+	padding-bottom: 20px;
+}
+
+
+/* navbar */
+.navbar-inverse {
+	background-color: #2d3d4e;
+	color: white;
+}
+
+.navbar-inverse .navbar-brand {
+	color: white;
+}
+.navbar-inverse .navbar-nav > li > a {
+	color: white;
+}
+
+/* Login  */
+
+.loginForm {
+	margin-top: 50px;
+	border: 2px solid #2d3d4e;
+	position: relative;
+}
+
+#loginLogo {
+	position: absolute;
+	top: -30%;
+	left: 30%;
+	z-index: 1;
+}
+
+#id_auth_form {
+	padding-top: 70px;
+	padding-bottom: 30px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+#loginBtn {
+	background-color: #2d3d4e;	
+	border-color: #2d3d4e;
+	color: white;
+}
+
+nav {
+}

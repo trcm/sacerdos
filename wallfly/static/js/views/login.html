@@ -2,27 +2,31 @@
 
 <br/>
 <br/>
-<div class="" 
+<div class="loginForm col-md-4 col-md-offset-4" 
 	ng-init="user='{{user.username}}'">
 	<!-- <div ng-show="user" class="navbar-form navbar-right">
 	<input type="submit" class="btn btn-default" ng-click="logout()"
 	value="logout {{user}}"/>
 	</div> -->
-	<h1 style="color: red;">{{ error }}</h1>
+	<div class="text-center" id="loginLogo">
+		<img id="" class="" alt="" src="static/img/login-logo.png"/>
+	</div>
+
 	<div>
 		<!-- <div ng-hide="user"> -->
 		<form id="id_auth_form" class=""
 			ng-submit="login()">
+			<h1 style="color: red;">{{ error }}</h1>
 			<div class="form-group">
 				<input ng-model="username" required name="username"
-					type="text" placeholder="username" class="form-control">
+					type="text" placeholder="Username" class="form-control">
 			</div>
 			<div class="form-group">
 				<input ng-model="password" required name="password" type="password"
-					placeholder="password" class="form-control">
+					placeholder="Password" class="form-control">
 			</div>
-			<div class="form-actions">
-				<input id="loginBtn" text-center class="btn btn-lg btn-primary" name="" type="submit" value="{{ loginBtnTxt }}"/>
+			<div class="form-actions text-center">
+				<input id="loginBtn" text-center class="btn btn-primary" name="" type="submit" value="{{ loginBtnTxt }}"/>
 			</div>
 		</form>
 	</div>
