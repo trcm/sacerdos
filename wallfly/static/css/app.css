@@ -81,5 +81,25 @@ nav {
 }
 
 .agentDiv {
-	margin-bottom: 30px;
+	margin-bottom: 40px;
 }
+
+#propList > li {
+	margin-top:10px;
+}
+
+.propGridItemPic {
+	display: block;
+	height: 150px;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.propGridItm {
+	border: 3px #2d3d4e solid;
+	width: 350px;
+	height: 200px;
+	list-style: none;
+}
+
