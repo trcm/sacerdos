@@ -59,7 +59,8 @@ class AuthView(APIView):
         content = {
             'user': unicode(request.user),  # `django.contrib.auth.User` instance.
             'auth': unicode(request.auth),
-            'id'  : userToken.user_id
+            'id'  : userToken.user_id,
+            'level': userToken.user.wfuser.user_level
         }
         return Response(content)
 

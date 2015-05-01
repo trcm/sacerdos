@@ -83,6 +83,7 @@ angular.module('wallfly',
 	  $http.get('/auth/').success(function(data) {
 	    token.storeUser(data.user);
 	    $window.sessionStorage.user = data.user;
+	    $window.sessionStorage.level = data.level;
 	    $window.sessionStorage.id = data.id;
 	    $location.path('/');
 	  });

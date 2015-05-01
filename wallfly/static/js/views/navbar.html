@@ -1,4 +1,22 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navbarController">
+	
+	<div ng-if="agent">
+		<a href="#/">
+			<img id="semiLogo" alt="" src="static/img/owner-semi.png"/>
+		</a>
+	</div>
+
+	<div ng-if="owner">
+		<a href="#/">
+			<img id="semiLogo" alt="" src="static/img/owner-semi.png"/>
+		</a>
+	</div>
+
+	<div ng-if="tenant">
+		<a href="#/">
+			<img id="semiLogo" alt="" src="static/img/owner-semi.png"/>
+		</a>
+	</div>
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">

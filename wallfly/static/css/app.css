@@ -70,4 +70,16 @@ nav {
 	background-color: #2d3d4e;	
 	border-color: #2d3d4e;
 	color: white;
+	margin-bottom: 10px;
+}
+
+#semiLogo {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100000;
+}
+
+.agentDiv {
+	margin-bottom: 30px;
 }

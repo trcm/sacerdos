@@ -2,7 +2,7 @@ angular.module('wallfly')
   .controller('HomeController', ['$scope', '$http', '$window', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window, $modal, resolveProperties, Property, User) {
     // use the ReolveProperties method in the application
     $scope.properties = resolveProperties.data;
-    
+
     if ($scope.properties.prop) {
       $scope.prop = $scope.properties.prop;
     }

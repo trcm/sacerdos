@@ -51,18 +51,17 @@
 <!-- <div ng-if="agent" ng-include=" 'static/js/views/users/agent.html' ">
 </div>
 -->
-<div ng-if="agent">
-	<h1>Properties</h1>
-	<button class="btn btn-lg btn-primary" id="createBtn" ng-click="newProp()">Create Property</button>
+<div class="agentDiv" ng-if="agent">
+	<h1 class="text-center">Properties</h1>
+	<button class="btn btn-lg btn-primary pull-right" id="createBtn" ng-click="newProp()">Create Property</button>
 </div>
 
 <div ng-if="owner" ng-include=" 'static/js/views/users/owner.html' ">
 </div>
 
-<div ng-if="tenant" ng-include=" 'static/js/views/users/tenant.html' ">
+<div ng-if="tenant">
 </div>
 
-</div>
 
 <div ng-show="prop" class="{{ prop.status_string }}">
 	<img alt="" ng-src="{{ prop.property_image }}"/>
