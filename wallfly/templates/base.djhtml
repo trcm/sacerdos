@@ -13,13 +13,14 @@
 		<title>Wallfly</title>
 		<link href="{{ STATIC_URL }}js/libs/bootstrap-css/css/bootstrap.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}js/libs/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
 		<link href="{{ STATIC_URL }}css/app.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container" ng-view></div>
 
 		<script src="{{ STATIC_URL }}js/libs/jquery/dist/jquery.js"></script>
-		<script src="{{ STATIC_URL }}js/libs/jquery-ui/jquery-ui.js"></script>
+		<script src="{{ STATIC_URL }}js/libs/jquery-ui/ui/jquery-ui.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/lodash/dist/lodash.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular/angular.js"></script>
@@ -29,7 +30,10 @@
 		<script src="{{ STATIC_URL }}js/libs/angular-cookies/angular-cookies.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-		
+		<script src="{{ STATIC_URL }}js/libs/flow.js/dist/flow.js"></script>
+		<script src="{{ STATIC_URL }}js/libs/ng-flow/dist/ng-flow.js"></script>
+		<script src="{{ STATIC_URL }}js/libs/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+	
 		<script src="{{ STATIC_URL }}js/libs/spin.js/spin.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-spinner/angular-spinner.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-ui-date/src/date.js"></script>

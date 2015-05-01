@@ -1,7 +1,7 @@
 <ng-include src=" 'static/js/views/navbar.html'"></ng-include>
 
 <script type="text/ng-template" id="issue-create.html">
-	<form ng-submit="ok()"
+	<form ng-submit="ok()" flow-init="{testChunks:false}" flow-name="uploader.flow"
 		class="ng-scope ng-invalid ng-invalid-required ng-dirty" method="POST">
 		<div class="modal-header">
 			<button type="button" class="close"
@@ -27,6 +27,12 @@
 					/>
 				<span class="error" ng-show="form.description.$error.minlength">Must be at least  characters.</span>
 				<span class="error" ng-show="form.description.$error.maxlength">Must be at most 1000 characters.</span>
+			</div>
+			
+			<div class="form-group"  >
+				<label>Picture</label><br/>
+				<span name="image" ng-model="image" class="btn btn-primary" flow-btn>Select Image</span>
+				{{ $flow.files[0].file.name }}
 			</div>
 
 			<div class="modal-footer">
@@ -59,6 +65,7 @@
 		<tr>
 			<th st-sort="severity">Severity</th>
 			<th st-sort="description">Description</th>
+			<th>Image</th>
 			<th st-sort="progress">Resolution</th>
 			<th>Remove</th>
 		</tr>
@@ -67,6 +74,10 @@
 		<tr ng-repeat="row in issues" ng-hide="row.resolved">
 			<td>{{row.severity}}</td>
 			<td>{{row.description}}</td>
+			<td><a ng-click="openLightboxModal(row.image)">
+				<img ng-src="{{row.image}}" class="img-thumbnail">
+			</a>
+			</td>
 			<td>
 				<button id="resolveBtn" ng-click="resolveIssue(row)" class="btn btn-sm">Resolve </button>
 			</td>

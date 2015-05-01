@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from wallfly.models import *
-from wallfly.permissions import IsRelatedToUser
+from wallfly.permissions import IsRelatedToUser, IsOwnUser
 from wallfly.serializers import PropertySerializer, AgentSerializer, UserSerializer, IssueSerializer, TenantSerializer, WFUserSerializer
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
@@ -32,8 +32,6 @@ def home(request):
 
 # Converts a property status into a string for the css class in the template
 def convertStatusToString(status):
-    print status
-    print type(status)
     if status == 1:
         return "one"
     elif status == 2:
@@ -123,8 +121,6 @@ class PropertyView(APIView):
     def get(self, request, format=None):
         ## hardcoded agent id BAD BAD
         agent = WFUser.objects.get(id=1)
-        print agent
-        print agent.agent_id
 
         #get and serialize the list of properties for this agent
         properties = Property.objects.filter(agent_id=agent.agent_id)
@@ -132,6 +128,33 @@ class PropertyView(APIView):
             
         return Response(serializer.data)
 
+    def post(self, request, format=None):
+        try:
+            print request.data
+            ret = request.data
+            tok = Token.objects.get(key=request.auth)
+            agent = tok.user.wfuser.agent_id
+
+            print "agent id ", agent
+            ret['agent_id'] = agent
+            print ret
+            
+            prop = PropertySerializer(data=ret)
+            if prop.is_valid():
+                prop.save()
+
+                p = Property.objects.get(address=prop.data['address'])
+                p.agent_id = agent
+                p.save()
+                return Response(status=status.HTTP_201_CREATED)
+            else:
+                print prop.errors
+                return Response(prop.errors)
+        except Exception as e:
+            print e
+            raise Http404
+        
+        return Response("done")
 
 ### NOT USED CURRENTLY
 class AgentView(APIView):
@@ -174,18 +197,19 @@ class UserDetail(APIView):
 
     """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwnUser, )
 
     def get(self, request, pk, format=None):
 
         try:
             # try grabbing and serializing the WFUser object for the user
-            print 'grabbing user'
             u = WFUser.objects.get(id=pk)
-            us = WFUserSerializer(u)
+            print u
+            self.check_object_permissions(request, u)
 
+            us = WFUserSerializer(u)
+            
             if u.user_level == AGENT:
-                print 'agent'
                 # grab all the properties for the user
                 props = Property.objects.filter(agent_id=u.agent_id)
                 for p in props:
@@ -314,6 +338,8 @@ class IssueDetail(APIView):
     def post(self, request, pk, format=None):
 
         try:
+            print "creating issue"
+            print request.data
             # grab the property
             prop = Property.objects.get(id=pk)
             request.data['property_id'] = prop.id

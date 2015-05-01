@@ -6,6 +6,8 @@ angular.module('wallfly',
 		'ui.bootstrap',
 		'ui.date',
 		'smart-table',
+		'flow',
+		'bootstrapLightbox',
 		'angularSpinner',
 		'ngLodash'])
   .config(['$routeProvider', function ($routeProvider) {

@@ -128,9 +128,12 @@ class Issue(models.Model):
     issue_id    = UUIDField(auto=True)
     severity    = models.IntegerField(default=1)
     description = models.CharField(max_length=1000, null=True)
-    image       = models.ImageField(null=True)
+    image       = ResizedImageField(size=[500,300], null=True)
     resolved    = models.IntegerField(default=0)
     property_id = models.ForeignKey(Property, null=True)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.severity, self.description)
 
 class Financial(models.Model):
     """
