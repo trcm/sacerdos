@@ -11,8 +11,7 @@
 		<link href="{{ STATIC_URL }}js/libs/bootstrap-css/css/bootstrap.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}js/libs/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 		<link href="{{ STATIC_URL }}css/app.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}js/libs/fullcalendar/dist/fullcalendar.css"/>
-		<link href="{{ STATIC_URL }}css/CalendarDemo.css"/>
+		<link href="{{ STATIC_URL }}js/libs/fullcalendar/dist/fullcalendar.css" rel="stylesheet"/>
 		
 	</head>
 	<body>
