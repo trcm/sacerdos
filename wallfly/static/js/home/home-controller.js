@@ -10,9 +10,22 @@ angular.module('wallfly')
     // router to get all the properties from the database
     // set the user variable
     $scope.user = $window.sessionStorage.user;
-    console.log($window.sessionStorage.id);
-    console.log($window.sessionStorage.user);
 
+    console.log($scope.properties.props);
+    // break properties in numerous arrays to display on the page
+
+    $scope.prop_split = [];
+
+    if (!($scope.properties.prop)) {
+      console.log($scope.properties.props.length);
+      for (var i = 0; i < $scope.properties.props.length; i = i + 3) {
+	console.log(i);
+	console.log($scope.properties.props.slice(i, i+3));
+	$scope.prop_split.push($scope.properties.props.slice(i, i+3));
+      }
+    }
+    console.log($scope.prop_split);
+    
     // get type of user.  This will decide the includes for the main template
     $scope.agent = false;
     $scope.tenant = false;
