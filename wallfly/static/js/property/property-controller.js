@@ -1,5 +1,5 @@
 angular.module('wallfly')
-  .controller('PropertyController', ['$scope', '$http', '$window', '$modal', 'resolvedProperty', 'Property', 'Issue', 'issues', function($scope, $http, $window, $modal, resolvedProperty, Property, Issue, issues) {
+  .controller('PropertyController', ['$scope', '$http', '$window', '$modal', 'resolvedProperty', 'Property', 'Issue', 'Lightbox', 'issues', function($scope, $http, $window, $modal, resolvedProperty, Property, Issue, Lightbox, issues) {
 
     
     $scope.user = $window.sessionStorage.user;
@@ -27,21 +27,53 @@ angular.module('wallfly')
 	$scope.saveIssue(id.id);
       });
     };
-    
+
+    // open a modal with the lightbox image inside it
+    $scope.openLightboxModal = function (index) {
+      Lightbox.openModal(index);
+    };    
     // Acutally calls the http request to save a new issue in the database
     $scope.saveIssue = function(id) {
       var u = '/issue/' + id;
-      $scope.newIssue.property_id = id.id;
+      $scope.newIssue.property_id = id;
       console.log(id, $scope.newIssue);
-      // save the new issue then grab the updated issues and property details
-      $http.post(u, $scope.newIssue)
-      	.success(function() {
+
+      // add issue with image
+      
+      var fd = new FormData();
+
+      if ($scope.newIssue['image']) {
+	fd.append("severity", $scope.newIssue["severity"]);
+	fd.append("description", $scope.newIssue["description"]);
+	fd.append("image", $scope.newIssue["image"]);
+	fd.append("property_id", $scope.newIssue.property_id);
+      } else {
+	fd.append("severity", $scope.newIssue["severity"]);
+	fd.append("description", $scope.newIssue["description"]);
+	fd.append("property_id", $scope.newIssue.property_id);
+      }
+      console.log(fd);
+      $http.post(u, fd, {
+	transformRequest: angular.identity,
+	headers: {'Content-Type': undefined}
+      })
+	.success(function() {
 	  $scope.prop = Property.query({id: id});
 	  $scope.issues = Issue.query({id: id});
-      	})
+	})
 	.error(function(data) {
 	  alert(data);
 	});
+      
+      // save the new issue then grab the updated issues and property details
+      // $http.post(u, $scope.newIssue)
+      // 	.success(function() {
+      // 	  $scope.prop = Property.query({id: id});
+      // 	  $scope.issues = Issue.query({id: id});
+      // 	})
+      // 	.error(function(data) {
+      // 	  alert(data);
+      // 	});
     };
 
     // Change the issues resolution status to resolved
@@ -69,6 +101,7 @@ angular.module('wallfly')
   .controller('IssueCreateController', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance) {
     // handles the modal for the issue creation form
     $scope.issue = {};
+    $scope.uploader = {}; 
     $scope.options = [
       { label: 'Minor', value: 1 },
       { label: 'Moderate', value: 2 },
@@ -78,6 +111,10 @@ angular.module('wallfly')
     $scope.ok = function() {
       // update the severity value to be a number insteal of the label name
       $scope.issue.severity = $scope.issue.severity.value;
+      $scope.uploader.flow.upload();
+      if ($scope.uploader.flow.files.length > 0) {
+	$scope.issue.image = $scope.uploader.flow.files[0].file;
+      } 
       $modalInstance.close($scope.issue);
     };
 

@@ -130,6 +130,7 @@ class PropertyView(APIView):
 
     def post(self, request, format=None):
         try:
+            print request.data
             ret = request.data
             tok = Token.objects.get(key=request.auth)
             agent = tok.user.wfuser.agent_id
@@ -337,6 +338,8 @@ class IssueDetail(APIView):
     def post(self, request, pk, format=None):
 
         try:
+            print "creating issue"
+            print request.data
             # grab the property
             prop = Property.objects.get(id=pk)
             request.data['property_id'] = prop.id

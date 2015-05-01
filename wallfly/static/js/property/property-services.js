@@ -10,7 +10,7 @@ angular.module('wallfly')
     // factory to get the details of a particular property
     return $resource('/property/:id', {}, {
       query: {method:'GET'},
-      create: {method: 'POST'}
+      create: {method: 'POST', headers: {'Content-type': "multiple/form-data"}}
     });
   });
 
