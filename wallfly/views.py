@@ -1,18 +1,15 @@
 from django.shortcuts import render
 
-from rest_framework import generics
 from rest_framework.views import APIView
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
-from rest_framework.exceptions import APIException
 from rest_framework import status
 
 from wallfly.models import *
-from wallfly.serializers import PropertySerializer, AgentSerializer, UserSerializer, IssueSerializer, TenantSerializer
+from wallfly.permissions import IsRelatedToUser, IsOwnUser
+from wallfly.serializers import PropertySerializer, AgentSerializer, UserSerializer, IssueSerializer, TenantSerializer, WFUserSerializer
 
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authtoken.models import Token
 
 from django.shortcuts import render
@@ -21,100 +18,164 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
 from django.core import serializers
 
+
+# Define AGENT, OWNER and TENANT to a user level
 AGENT  = 1
 OWNER  = 2
 TENANT = 3
 
+
+# Default view, redirect the user to the base html file
 def home(request):
     return render(request, 'base.djhtml')
 
+
+# Converts a property status into a string for the css class in the template
 def convertStatusToString(status):
-    if status is 1:
+    if status == 1:
         return "one"
-    elif status is 2:
+    elif status == 2:
         return "two"
-    elif status is 3:
+    elif status == 3:
         return "three"
 
 
 class AuthView(APIView):
+    """
+    AuthView
+   
+    Controller to access the user model.  In reality this code is just used to set the username in the Angular controllers.
+ 
+    Methods:
+    get(self, request, format=None):
+    Returns the username and auth token of the user 
+    """
     authentication_classes = (TokenAuthentication,)
     serializer_class = UserSerializer
 
-    # def post(self, request, *args, **kwargs):
-    #     print request.META.get( 'HTTP_AUTHORIZATION' )
-
-    #     return Response(self.serializer_class(request.user).data)
-
     def get(self, request, format=None):
+        
+        userToken = Token.objects.get(key=request.auth)
         content = {
             'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-            'auth': unicode(request.auth),  # None
+            'auth': unicode(request.auth),
+            'id'  : userToken.user_id,
+            'level': userToken.user.wfuser.user_level
         }
         return Response(content)
 
 class PropertyDetail(APIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    
+    """
+    PropertyDetail
+    The property detail view is used to return the details for a particular propety
 
     
-    
+    Methods:
+    get(self, request, pk, format=None):
+    Returns a JSON object containing the details for a property
+    """
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated, IsRelatedToUser, )
+
     def get(self, request, pk, format=None):
         print pk
         ret = {}
         try:
+            # get and serialize the property
             prop = Property.objects.get(id=pk)
             ps = PropertySerializer(prop)
-
+            self.check_object_permissions(request, prop)
+            # make a mutable copy and add the status string to the copy
             ret = ps.data.copy()
             ret['status_string'] = convertStatusToString(ret['status'])
 
-            # get the tenatn information
-
+            # get the tenant information
             ten = Tenant.objects.get(property_id=prop)
             tenSerialized = TenantSerializer(ten)
             ret['tenant'] = tenSerialized.data
-            
             return Response(ret, status=200)
         except Property.DoesNotExist:
+            # The property doesn't exist, raise a 404 call
             raise Http404
         except Tenant.DoesNotExist:
-            # there's no tenant just return the data
+            # there's no tenants in the property, just return the data
             ret['tenant'] = 'NA'
             return Response(ret, status=200)
 
-    
+
 class PropertyView(APIView):
+    
+    """
+    PropertyView - returns all the propets for a particular user
+    # TODO - currently this is hardcoded to retrieve a particular users properties,
+      in this case it is hardcoded because we were just working on the agent view,
+      in the future this will work dynamically   
+ 
+    Methods:
+    get(self, request, format=None)
+    Returns a list of properties as a JSON object
+    """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
         ## hardcoded agent id BAD BAD
-        agent = WFUser.objects.get(id=2)
-        print agent
-        print agent.agent_id
-        properties = Property.objects.filter(agent_id=agent.agent_id)
+        agent = WFUser.objects.get(id=1)
 
-        # properties = Property.objects.all()
+        #get and serialize the list of properties for this agent
+        properties = Property.objects.filter(agent_id=agent.agent_id)
         serializer = PropertySerializer(properties, many=True)
-        print serializer.data
+            
         return Response(serializer.data)
 
+    def post(self, request, format=None):
+        try:
+            print request.data
+            ret = request.data
+            tok = Token.objects.get(key=request.auth)
+            agent = tok.user.wfuser.agent_id
 
+            print "agent id ", agent
+            ret['agent_id'] = agent
+            print ret
+            
+            prop = PropertySerializer(data=ret)
+            if prop.is_valid():
+                prop.save()
+
+                p = Property.objects.get(address=prop.data['address'])
+                p.agent_id = agent
+                p.save()
+                return Response(status=status.HTTP_201_CREATED)
+            else:
+                print prop.errors
+                return Response(prop.errors)
+        except Exception as e:
+            print e
+            raise Http404
+        
+        return Response("done")
+
+### NOT USED CURRENTLY
 class AgentView(APIView):
+    
+    """
+    The agent view will be used in the future for more agent specific tasks.
+ 
+    Methods:
+    get(self,request, pk, format=None)
+    CUrrently not used, all this does is return a list of properties as a JSON object
+    """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    """
-    View all the properties for a particular agent
-    """
     def get(self, request, pk, format=None):
         print pk
         try:
+            # get the agent and their properties
             agent = Agent.objects.get(id=pk)
-
             props = Property.objects.filter(agent_id=agent)
-
             serial = PropertySerializer(props, many=True)
             return Response(serial.data)
 
@@ -123,29 +184,59 @@ class AgentView(APIView):
 
 
 class UserDetail(APIView):
+    """
+    UserDetail
+    This view will be used in the future for actually gettign all the users information.
+    The three levels of user level will return three different types of data.
+
+    Methods:
+    get(self, request, pk, format)
+    
+    The Agent view will return a list of their managed properties.
+    The Tenant view will return just their single property.
+    The Owner view will return a view much like that of the agent view but with less detail
+
+    """
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, IsOwnUser, )
 
     def get(self, request, pk, format=None):
 
         try:
+            # try grabbing and serializing the WFUser object for the user
             u = WFUser.objects.get(id=pk)
-            us = UserSerializer(u)
+            print u
+            self.check_object_permissions(request, u)
 
+            us = WFUserSerializer(u)
+            
             if u.user_level == AGENT:
+                # grab all the properties for the user
                 props = Property.objects.filter(agent_id=u.agent_id)
                 for p in props:
                     p.status_string = convertStatusToString(p.status)
                 ps = PropertySerializer(props, many=True)
 
                 for p in ps.data:
+                    # insert the status strigns for the properties into the JSON object
                     p['status_string'] = convertStatusToString(p['status'])
+                    prop = Property.objects.get(property_id=p['property_id'])
+
+                    #grab, serialize and insert the issues for the property into the JSON object
+                    issues = Issue.objects.filter(property_id=prop)
+                    issuesSerialized = IssueSerializer(issues, many=True)
+                    p['issues'] = issuesSerialized.data
+                    print p['property_id']
+
                 
                 ret = us.data
                 ret['props'] = ps.data
                 return Response(ret)
 
             elif u.user_level == OWNER:
+                # user is an owner, simply grab their properties
+                # This may include the issues at some point if the grup decides the owner
+                # should have this functionality
                 props = Property.objects.filter(owner_id=u.owner_id)
                 ps = PropertySerializer(props, many=True)
                 ret = us.data
@@ -153,43 +244,83 @@ class UserDetail(APIView):
                 return Response(ret)
 
             elif u.user_level == TENANT:
-                prop = Property.objects.get(u.property_id)
-                ps = PropertySerializer(prop)
-                ret = us.data
-                ret['prop'] = ps.data
-                return Response(ret)
+                # user is a tenant, grab their property
+                # this  will also include issues
+                try:
+                    prop = u.tenant_id.property_id
+                    prop.status_string = convertStatusToString(prop.status)
+                    ps = PropertySerializer(prop)
+                    ret = us.data
+                    ret['prop'] = ps.data
+                    ret['prop']['status_string'] = convertStatusToString(prop.status)
+                    return Response(ret)
+                except Exception as e:
+                    print e
+                    raise Http404
 
+        # User doesn't exist raise 404
         except WFUser.DoesNotExist:
             raise Http404
 
 
 class IssueList(APIView):
+    
+    """
+    IssueList
+    Returns a list of issues for a specific property 
+
+    Methods:
+    get(self, request, pk, format=None)
+    Grab all the properties and the issues and return them
+    """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    # get all the issues for a property
     def get(self, request, pk, format=None):
         try:
+            # try and get the property
             prop = Property.objects.get(id=pk)
+            # filter the issues in the database for the specific property
             issues = Issue.objects.filter(property_id=prop)
+
+            # Serialzie and return the issues
             issueSerialized = IssueSerializer(issues, many=True)
             return Response(issueSerialized.data, status=200)
-            
+
         except Property.DoesNotExist:
             raise Http404
 
-        
-        
+
 class IssueDetail(APIView):
+    
+    """
+    IssueDetail
+    This view controls the varisous methods associated with issues
+    
+    Methods:
+    severityString(severity) - Accepts a number from 1-3 representing the severity of an issue,
+    returns the corresponding error string.
+
+    get(self, request,pk, format=None) - Will return all the details for an issue, not yet implemented.
+    post(self, request, pk, format=None) - Create a new issue for a particular property
+    put(self, request, pk, format=None) - Update the details of an Issue
+    delete(self, request, pk, format=None) - Delete an issue from the database
+    """
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    # get all the details for an issue
-    # TODO
+    def severityString(severity):
+        # Return a string based on the severity of the issue.
+        if severity is 1:
+            return "Mild"
+        elif severity is 2:
+            return "Moderate"
+        elif severity is 3:
+            return "Severe"
+    
     def get(self, request, pk, format=None):
-
+        # This will return all the details of a particular issue.  Not yet impletementd
         errors = {}
-
         # try and grab property
         try:
             print request.data
@@ -206,23 +337,99 @@ class IssueDetail(APIView):
 
     # create an issue, pk is the primary key id of the property of the issue
     def post(self, request, pk, format=None):
-        print "new issue request"
 
         try:
+            print "creating issue"
+            print request.data
+            # grab the property
             prop = Property.objects.get(id=pk)
             request.data['property_id'] = prop.id
+            # serialize the data from the user as a new Issue
             issue = IssueSerializer(data=request.data)
             if issue.is_valid():
-                
+
                 issue.save()
+                # update the severity of the status of the property
+                # TODO refactor into different method
+                issues = Issue.objects.filter(property_id=prop)
+                highest = 0
+                for i in issues:
+                    print "severity", i.severity
+                    if i.severity > highest and i.resolved < 1:
+                       print highest
+                       highest = i.severity
+                prop.status = highest
+                print highest
+                prop.save()
+
                 return Response(issue.data)
             else:
                 return Response(issue.errors)
 
         except Property.DoesNotExist:
+            # Raise 404 if the property doesn't exist
             raise Http404
 
         except Exception as e:
+            # catch generic exception
             print e
 
+        # Something went really wrong, return a 400
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    # update an Issue, at the moment this is just used to resolve the issue but
+    # it could be used to change any part of the issue
+    def put(self, request, pk, format=None):
+        # grab the issue
+        try:
+            issue = Issue.objects.get(id=pk)
+        except Issue.DoesNotExit:
+            raise Http404
+
+        # create a new object using the existing data and the data from the request
+        serializer = IssueSerializer(issue, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            # update the status of the property
+            prop = issue.property_id
+            issues = Issue.objects.filter(property_id=prop)
+            highest = 1
+            for i in issues:
+                print "severity", i.severity
+                if i.severity > highest and i.resolved < 1:
+                    highest = i.severity
+            prop.status = highest
+            print highest
+            prop.save()
+            
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Delete an issue from the database
+    def delete(self, request, pk, format=None):
+        try:
+            # Try grabbing and deleting the object
+            issue = Issue.objects.get(id=pk)
+            print issue
+            prop = issue.property_id
+            print prop
+            issue.delete()
+
+            # Update the severity status of the property
+            issues = Issue.objects.filter(property_id=prop)
+            highest = 1
+            for i in issues:
+                print "severity", i.severity
+                if i.severity > highest:
+                    highest = i.severity
+            prop.status = highest
+            print highest
+            prop.save()
+
+            # Nothing to return
+            return Response(status=204)
+
+        except Issue.DoesNotExist:
+            raise Http404

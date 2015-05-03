@@ -2,23 +2,41 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from wallfly.models import Property, Agent, WFUser, Issue, Tenant
 
+class WFUserSerializer(serializers.ModelSerializer):
+    """
+    WFUserSerializer
+    Serialzies the WFUser model to be rendered to or from JSON
+    """
+    class Meta:
+        model = WFUser
+        depth = 3
+
 class UserSerializer(serializers.ModelSerializer):
+    
+    """
+    UserSerializer
+    Serializes the User model into a format to be rendered to or from JSON    
+    """
     class Meta:
         model = User
 
 class PropertySerializer(serializers.ModelSerializer):
     """
     PropertySerializer
-    Simple json serializer for retrieving and creating the property objects
+    Serializes the Property model into a format to be rendered to or from JSON    
     """
 
     class Meta:
         model = Property
-        depth = 3
+        depth = 1
 
 
 class AgentSerializer(serializers.ModelSerializer):
-
+    """
+    AgentSerialzier
+    Serialzies the Agent model to be rendered to or from JSON
+    """
+    
     properties = serializers.PrimaryKeyRelatedField(many=True,
                                                     queryset=Property.objects.all())
     
@@ -29,17 +47,18 @@ class AgentSerializer(serializers.ModelSerializer):
 
 
 class IssueSerializer(serializers.ModelSerializer):
-
+    """
+    IssueSerializer
+    Serialzies the Issue model to be rendered to or from JSON
+    """
     class Meta:
         model = Issue
         
-class UserSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = WFUser
-        depth = 3
 
 class TenantSerializer(serializers.ModelSerializer):
-
+    """
+    TenantSerializer
+    Serialzies the Tentant model to be rendered to or from JSON
+    """
     class Meta:
         model = Tenant

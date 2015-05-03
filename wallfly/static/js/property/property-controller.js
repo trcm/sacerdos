@@ -1,44 +1,120 @@
 angular.module('wallfly')
-  .controller('PropertyController', ['$scope', '$http', '$modal', 'resolvedProperty', 'Issue', 'issues', function($scope, $http, $modal, resolvedProperty, Issue, issues) {
+  .controller('PropertyController', ['$scope', '$http', '$window', '$modal', 'resolvedProperty', 'Property', 'Issue', 'Lightbox', 'issues', function($scope, $http, $window, $modal, resolvedProperty, Property, Issue, Lightbox, issues) {
 
+    
+    $scope.user = $window.sessionStorage.user;
     $scope.issues = issues.data;
+    $scope.issuesSafe = $scope.issues;
     $scope.newIssue = {};
     $scope.prop = resolvedProperty.data;
+    $scope.issue = {};
 
-    console.log($scope.prop);
-
-    $scope.saveIssue = function(id) {
-      var u = '/issue/' + id;
-      $scope.newIssue.property_id = id.id;
-      console.log(id, $scope.newIssue);
-      $http({
-	method: 'POST',
-	url: u,
-	data: $scope.newIssue}).success(function(data) {
-	  console.log(data);
-	});
-    };
 
     // opens the modal with the issue creation form
+    // once the issue creation form has been completed, saves the issue in the
+    // database
     $scope.createIssue = function(id) {
-      console.log(id);
       var issueCreate = $modal.open({
 	templateUrl: 'issue-create.html',
 	controller: 'IssueCreateController'
       });
 
+      // when the modal is closed, get the data from its form and create a new issue
       issueCreate.result.then(function(entity) {
 	$scope.newIssue = entity;
+	console.log(entity);
 	console.log("property id " + id.id);
 	$scope.saveIssue(id.id);
       });
     };
+
+    // open a modal with the lightbox image inside it
+    $scope.openLightboxModal = function (index) {
+      Lightbox.openModal(index);
+    };    
+    // Acutally calls the http request to save a new issue in the database
+    $scope.saveIssue = function(id) {
+      var u = '/issue/' + id;
+      $scope.newIssue.property_id = id;
+      console.log(id, $scope.newIssue);
+
+      // add issue with image
+      
+      var fd = new FormData();
+
+      if ($scope.newIssue['image']) {
+	fd.append("severity", $scope.newIssue["severity"]);
+	fd.append("description", $scope.newIssue["description"]);
+	fd.append("image", $scope.newIssue["image"]);
+	fd.append("property_id", $scope.newIssue.property_id);
+      } else {
+	fd.append("severity", $scope.newIssue["severity"]);
+	fd.append("description", $scope.newIssue["description"]);
+	fd.append("property_id", $scope.newIssue.property_id);
+      }
+      console.log(fd);
+      $http.post(u, fd, {
+	transformRequest: angular.identity,
+	headers: {'Content-Type': undefined}
+      })
+	.success(function() {
+	  $scope.prop = Property.query({id: id});
+	  $scope.issues = Issue.query({id: id});
+	})
+	.error(function(data) {
+	  alert(data);
+	});
+      
+      // save the new issue then grab the updated issues and property details
+      // $http.post(u, $scope.newIssue)
+      // 	.success(function() {
+      // 	  $scope.prop = Property.query({id: id});
+      // 	  $scope.issues = Issue.query({id: id});
+      // 	})
+      // 	.error(function(data) {
+      // 	  alert(data);
+      // 	});
+    };
+
+    // Change the issues resolution status to resolved
+    $scope.resolveIssue = function(issue) {
+      var id = $scope.prop.id;
+      $http.put("/issue/" + issue.id, {"resolved" : 1})
+	.success(function(data) {
+	  // update the issue to resolved and grab the updated issues and property details
+	  $scope.prop = Property.query({id: id});
+	  $scope.issues = Issue.query({id: id});
+	});
+    };
+    
+    // delete an issue from the database
+    $scope.deleteIssue = function(issue) {
+      var id = $scope.prop.id;
+      $http.delete('/issue/' + issue.id).
+	success(function(data) {
+	  $scope.prop = Property.query({id: $scope.prop.id});
+	  $scope.issues = Issue.query({id: id});
+	});
+    };
+    
   }])
   .controller('IssueCreateController', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance) {
-
+    // handles the modal for the issue creation form
     $scope.issue = {};
+    $scope.uploader = {}; 
+    $scope.options = [
+      { label: 'Minor', value: 1 },
+      { label: 'Moderate', value: 2 },
+      { label: 'Severe', value: 3 }
+    ];
     
     $scope.ok = function() {
+      // update the severity value to be a number insteal of the label name
+      $scope.issue.severity = $scope.issue.severity.value;
+      $scope.uploader.flow.upload();
+      if ($scope.uploader.flow.files.length > 0) {
+	$scope.issue.image = $scope.uploader.flow.files[0].file;
+      } 
       $modalInstance.close($scope.issue);
     };
 

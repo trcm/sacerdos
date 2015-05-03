@@ -1,3 +1,6 @@
+<!-- Base template loaded by the django rest backend containing the angular app -->
+
+
 {% load staticfiles %}
 
 <!doctype html>
@@ -10,37 +13,12 @@
 		<title>Wallfly</title>
 		<link href="{{ STATIC_URL }}js/libs/bootstrap-css/css/bootstrap.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}js/libs/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
 		<link href="{{ STATIC_URL }}css/app.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}js/libs/fullcalendar/dist/fullcalendar.css" rel="stylesheet"/>
 		
 	</head>
 	<body>
-		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#/">Wallfly</a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav">
-						<li>
-							<a href="/#/login">Login</a>
-						</li>	
-						<li>
-							<a href="/#/calendar">calendar</a>
-						
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container -->
-		</nav>
 		<div class="container" ng-view></div>
 
 		<!-- calender scripts -->
@@ -60,7 +38,10 @@
 		<script src="{{ STATIC_URL }}js/libs/angular-cookies/angular-cookies.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-		
+		<script src="{{ STATIC_URL }}js/libs/flow.js/dist/flow.js"></script>
+		<script src="{{ STATIC_URL }}js/libs/ng-flow/dist/ng-flow.js"></script>
+		<script src="{{ STATIC_URL }}js/libs/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+	
 		<script src="{{ STATIC_URL }}js/libs/spin.js/spin.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-spinner/angular-spinner.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-ui-date/src/date.js"></script>
@@ -82,10 +63,11 @@
 		<script src="{{ STATIC_URL }}js/home/calendar-controller.js"><</script>
 
 		
+		<script src="{{ STATIC_URL }}js/nav/navbar-controller.js"></script>
+		
 		<script src="{{ STATIC_URL }}js/property/property-services.js"></script>
 		<script src="{{ STATIC_URL }}js/property/property-router.js"></script>
 		<script src="{{ STATIC_URL }}js/property/property-controller.js"></script>
 
-		<img style="display:block; margin-right:auto; margin-left:auto;" alt="" src="{{ STATIC_URL }}/img/django.jpg"/>
 	</body>
 </html>
