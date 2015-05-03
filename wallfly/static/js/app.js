@@ -31,13 +31,13 @@ angular.module('wallfly',
 	  }]
 	}})
     //redirect for calendar test
-  .when('/calendar',{
+    .when('/calendar',{
 	templateUrl: 'static/js/views/calendar.html',
 	controller: 'CalController'})
-      .otherwise({redirectTo: '/'});
+      .otherwise({redirectTo: '/'})
 
     // redirect information for the login controller
-      .when('/login', {
+    .when('/login', {
 	templateUrl: 'static/js/views/login.html',
 	controller: 'authController'})
       .otherwise({redirectTo: '/login'});
