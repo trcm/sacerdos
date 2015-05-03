@@ -1,18 +1,31 @@
 angular.module('wallfly')
-  .controller('HomeController', ['$scope', '$http', '$window', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window, $modal, resolveProperties, Property, User) {
+  .controller('HomeController', ['$scope', '$http', '$window', '$location', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window, $modal, $location, resolveProperties, Property, User) {
     // use the ReolveProperties method in the application
     $scope.properties = resolveProperties.data;
 
     if ($scope.properties.prop) {
       $scope.prop = $scope.properties.prop;
+      url = "/#/property/" + $scope.prop.id;
+      $window.location.href = url;
     }
     
     // router to get all the properties from the database
     // set the user variable
     $scope.user = $window.sessionStorage.user;
-    console.log($window.sessionStorage.id);
-    console.log($window.sessionStorage.user);
+    // break properties in numerous arrays to display on the page
 
+    $scope.prop_split = [];
+
+    if (!($scope.properties.prop)) {
+      console.log($scope.properties.props.length);
+      for (var i = 0; i < $scope.properties.props.length; i = i + 3) {
+	console.log(i);
+	console.log($scope.properties.props.slice(i, i+3));
+	$scope.prop_split.push($scope.properties.props.slice(i, i+3));
+      }
+    }
+    console.log($scope.prop_split);
+    
     // get type of user.  This will decide the includes for the main template
     $scope.agent = false;
     $scope.tenant = false;
@@ -59,14 +72,14 @@ angular.module('wallfly')
 
 	$http.post("/property/", fd, {
 	  transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-        })
-          .success(function(){
+	  headers: {'Content-Type': undefined}
+	})
+	  .success(function(){
 	    $scope.properties = User.query({ id:$window.sessionStorage.id });
-          })
-          .error(function(){
+	  })
+	  .error(function(){
 	    alert("Error: Unfortunately, there was a major crash during Property creation.  Please contact your System Administrator");
-          });
+	  });
 	
 	// $http.post("/property/", prop)
 	//   .success(function() {
