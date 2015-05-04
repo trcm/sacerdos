@@ -33,7 +33,7 @@
 		<script src="{{ STATIC_URL }}js/libs/flow.js/dist/flow.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/ng-flow/dist/ng-flow.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
-	
+		
 		<script src="{{ STATIC_URL }}js/libs/spin.js/spin.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-spinner/angular-spinner.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/angular-ui-date/src/date.js"></script>

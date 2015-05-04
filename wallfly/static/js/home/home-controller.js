@@ -1,5 +1,5 @@
 angular.module('wallfly')
-  .controller('HomeController', ['$scope', '$http', '$window', '$location', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window, $modal, $location, resolveProperties, Property, User) {
+  .controller('HomeController', ['$scope', '$http', '$window', '$location', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window, $location, $modal, resolveProperties, Property, User) {
     // use the ReolveProperties method in the application
     $scope.properties = resolveProperties.data;
 
@@ -81,13 +81,6 @@ angular.module('wallfly')
 	    alert("Error: Unfortunately, there was a major crash during Property creation.  Please contact your System Administrator");
 	  });
 	
-	// $http.post("/property/", prop)
-	//   .success(function() {
-	//     $scope.properties = User.query({ id:$window.sessionStorage.id });
-	//   })
-	//   .error(function() {
-	//     alert("Error: Unfortunately, there was a major crash during Property creation.  Please contact your System Administrator");
-	//   });
       });
     };
     
