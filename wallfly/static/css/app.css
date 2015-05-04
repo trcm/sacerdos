@@ -4,14 +4,28 @@ body {
 
 .one {
 	background-color: green;
+    margin-right:2.5%;
+    width:45%;
+    float:left;
+    overflow:hidden;
 }
 
 .two {
 	background-color: yellow;
+    margin-right:2.5%;
+    width:45%;
+    float:left;
+    overflow:hidden;
+
 }
 
 .three {
 	background-color: red;
+    margin-right:2.5%;
+    width:45%;
+    float:left;
+    overflow:hidden;
+
 }
 
 #loginLogo {
@@ -103,3 +117,14 @@ nav {
 	list-style: none;
 }
 
+/* property */
+.calHold {
+    margin-left:2.5%;
+    width:45%;
+    float: right;
+}
+
+.tableInfo {
+    margin-top:10px;
+    clear:both;
+}

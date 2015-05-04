@@ -54,42 +54,47 @@
 	<p>Tenants: {{ prop.tenant }}</p>
 	<p>Agent: {{ prop.agent_id}}</p>
 </div>
+
+<div class="col-md-6" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
 	
-<button ng-click="createIssue(prop)" class="btn btn-danger">Create Issue</button>
-<h4>Issues</h4>
-<table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
-	<thead>
-		<tr>
-			<th colspan="5"><input st-search="" class="form-control" placeholder="Search..." type="search"/></th>
-		</tr>
-		<tr>
-			<th st-sort="severity">Severity</th>
-			<th st-sort="description">Description</th>
-			<th>Image</th>
-			<th st-sort="progress">Resolution</th>
-			<th>Remove</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="row in issues" ng-hide="row.resolved">
-			<td>{{row.severity}}</td>
-			<td>{{row.description}}</td>
-			<td><a ng-click="openLightboxModal(row.image)">
-				<img ng-src="{{row.image}}" class="img-thumbnail">
-			</a>
-			</td>
-			<td>
-				<button id="resolveBtn" ng-click="resolveIssue(row)" class="btn btn-sm">Resolve </button>
-			</td>
-			<td>
-				<button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
-					<i class="glyphicon glyphicon-remove-circle">
-					</i>
-				</button>
-			</td>
-		</tr>
-	</tbody>
-</table>       
+<div class='tableInfo'>
+    <button ng-click="createIssue(prop)" class="btn btn-danger">Create Issue</button>
+
+    <h4>Issues</h4>
+    <table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
+    	<thead>
+	    	<tr>
+		    	<th colspan="5"><input st-search="" class="form-control" placeholder="Search..." type="search"/></th>
+		    </tr>
+		    <tr>
+    			<th st-sort="severity">Severity</th>
+    			<th st-sort="description">Description</th>
+    			<th>Image</th>
+    			<th st-sort="progress">Resolution</th>
+    			<th>Remove</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<tr ng-repeat="row in issues" ng-hide="row.resolved">
+    			<td>{{row.severity}}</td>
+    			<td>{{row.description}}</td>
+    			<td><a ng-click="openLightboxModal(row.image)">
+    				<img ng-src="{{row.image}}" class="img-thumbnail">
+    			</a>
+    			</td>
+    			<td>
+    				<button id="resolveBtn" ng-click="resolveIssue(row)" class="btn btn-sm">Resolve </button>
+    			</td>
+    			<td>
+    				<button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
+    					<i class="glyphicon glyphicon-remove-circle">
+    					</i>
+    				</button>
+    			</td>
+    		</tr>
+    	</tbody>
+    </table>       
+
 	
 <h4>Issue history</h4>
 <table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
@@ -118,3 +123,4 @@
 		</tr>
 	</tbody>
 </table>       
+</div>
