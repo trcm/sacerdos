@@ -45,14 +45,15 @@
 
 </script>
 
-
-<div class="{{ prop.status_string }}">
-	<img alt="" ng-src="{{ prop.property_image }}"/>
-	<h3>{{ prop.name }}</h3>
-	<p>{{ prop.status }}</p>
-	<p>{{ prop.address }}</p>
-	<p>Tenants: {{ prop.tenant }}</p>
-	<p>Agent: {{ prop.agent_id}}</p>
+<div class="col-md-6">
+    <div class="{{ prop.status_string }}P" >
+	    <img alt="" ng-src="{{ prop.property_image }}"/>
+	    <h3>{{ prop.name }}</h3>
+	    <p>{{ prop.status }}</p>
+    	<p>{{ prop.address }}</p>
+    	<p>Tenants: {{ prop.tenant }}</p>
+    	<p>Agent: {{ prop.agent_id}}</p>
+    </div>
 </div>
 
 <div class="col-md-6" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
