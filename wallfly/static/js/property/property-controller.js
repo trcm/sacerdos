@@ -1,5 +1,5 @@
 angular.module('wallfly')
-  .controller('PropertyController', ['uiCalendarConfig', '$scope', '$http', '$window', '$modal', 'resolvedProperty', 'Property', 'Issue', 'Lightbox', 'issues', function(uiCalendarConfig, $scope, $http, $window, $modal, resolvedProperty, Property, Issue, Lightbox, issues) {
+  .controller('PropertyController', ['uiCalendarConfig', '$scope', '$http', '$window', '$modal', 'lodash', 'resolvedProperty', 'Property', 'Issue', 'Lightbox', 'issues', function(uiCalendarConfig, $scope, $http, $window, $modal, lodash, resolvedProperty, Property, Issue, Lightbox, issues) {
 
 
     $scope.user = $window.sessionStorage.user;
@@ -9,6 +9,9 @@ angular.module('wallfly')
     $scope.prop = resolvedProperty.data;
     $scope.issue = {};
 
+    $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
+    console.log($scope.currIssues.length);
+    
     //sets the ui for the calendar app
     $scope.uiConfig = {
       calendar:{
@@ -21,7 +24,7 @@ angular.module('wallfly')
           right: 'today prev,next'
         },
         dayClick: $scope.alertEventOnClick,
-      eventDrop: $scope.alertOnDrop,
+	eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize
       }
     };
@@ -96,6 +99,7 @@ angular.module('wallfly')
 	.success(function() {
 	  $scope.prop = Property.query({id: id});
 	  $scope.issues = Issue.query({id: id});
+	  $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
 	})
 	.error(function(data) {
 	  alert(data);
@@ -120,6 +124,7 @@ angular.module('wallfly')
 	  // update the issue to resolved and grab the updated issues and property details
 	  $scope.prop = Property.query({id: id});
 	  $scope.issues = Issue.query({id: id});
+	  $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
 	});
     };
 
@@ -130,6 +135,7 @@ angular.module('wallfly')
 	success(function(data) {
 	  $scope.prop = Property.query({id: $scope.prop.id});
 	  $scope.issues = Issue.query({id: id});
+	  $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
 	});
     };
 

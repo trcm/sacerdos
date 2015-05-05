@@ -46,13 +46,29 @@
 </script>
 
 
-<div class="{{ prop.status_string }}">
-	<img alt="" ng-src="{{ prop.property_image }}"/>
-	<h3>{{ prop.name }}</h3>
-	<p>{{ prop.status }}</p>
-	<p>{{ prop.address }}</p>
-	<p>Tenants: {{ prop.tenant }}</p>
-	<p>Agent: {{ prop.agent_id}}</p>
+<div class="col-md-6 propertyInfo">
+	<div>
+		<img class="propertyPic {{ prop.status_severity }}" alt="" ng-src="{{ prop.property_image }}"/>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<h3>{{ prop.name }}</h3>
+			<p>{{ prop.address }}</p>
+			<h4>Tenant</h4>
+			<p>Email: {{ prop.tenant.email }}</p>
+			<P>Contact: {{ prop.tenant.contact_number }}</P>
+			<h4>Agent</h4>
+			<p>Email: {{ prop.agent_id.email }}</p>
+			<p>Contact: {{ prop.agent_id.contact_num }}</p>
+		</div>
+		<div class="col-md-6">
+			<h3>Property Status</h3>
+			<p>Status: {{ prop.status_severity }} </p>
+			<p>Current issues: {{ currIssues.length }}</p>
+		</div>
+		
+	</div>
+	
 </div>
 
 <div class="col-md-6" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>

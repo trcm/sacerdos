@@ -39,6 +39,15 @@ def convertStatusToString(status):
     elif status == 3:
         return "three"
 
+def convertStatusToSeverity(status):
+    if status == 1:
+        return "Ok"
+    elif status == 2:
+        return "Moderate"
+    elif status == 3:
+        return "Severe"
+    
+
 
 class AuthView(APIView):
     """
@@ -89,7 +98,7 @@ class PropertyDetail(APIView):
             # make a mutable copy and add the status string to the copy
             ret = ps.data.copy()
             ret['status_string'] = convertStatusToString(ret['status'])
-
+            ret['status_severity'] = convertStatusToSeverity(ret['status'])
             # get the tenant information
             ten = Tenant.objects.get(property_id=prop)
             tenSerialized = TenantSerializer(ten)

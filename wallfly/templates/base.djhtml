@@ -15,7 +15,7 @@
 		<link href="{{ STATIC_URL }}js/libs/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 		<link rel="stylesheet" href="{{ STATIC_URL }}js/libs/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
 		<link href="{{ STATIC_URL }}css/app.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}js/libs/fullcalendar/dist/fullcalendar.css" rel="stylesheet"/>
+		<link href="{{ STATIC_URL }}js/libs/fullcalendar/fullcalendar.css" rel="stylesheet"/>
 		
 	</head>
 	<body>
@@ -52,8 +52,8 @@
 
 		<script src="{{ STATIC_URL }}js/app.js"></script>
 		<script src="{{ STATIC_URL }}js/libs/moment/moment.js"></script>
-    		<script src="{{ STATIC_URL }}js/libs/fullcalendar/dist/fullcalendar.js"></script>
-    		<script src="{{ STATIC_URL }}js/libs/fullcalendar/dist/gcal.js"></script>
+    		<script src="{{ STATIC_URL }}js/libs/fullcalendar/fullcalendar.js"></script>
+    		<script src="{{ STATIC_URL }}js/libs/fullcalendar/gcal.js"></script>
     		<script src="{{ STATIC_URL }}js/libs/angular-ui-calendar/src/calendar.js"></script>	
 
 		<script src="{{ STATIC_URL }}js/home/home-controller.js"></script>
