@@ -4,29 +4,49 @@ body {
 
 .one {
 	background-color: green;
-    margin-right:2.5%;
+/*    margin-right:2.5%;
     width:45%;
     float:left;
-    overflow:hidden;
+    overflow:hidden; */
 }
 
 .two {
 	background-color: yellow;
-    margin-right:2.5%;
+/*    margin-right:2.5%;
     width:45%;
     float:left;
-    overflow:hidden;
+    overflow:hidden; */
 
 }
 
 .three {
 	background-color: red;
-    margin-right:2.5%;
+ /*   margin-right:2.5%;
     width:45%;
     float:left;
-    overflow:hidden;
+    overflow:hidden; */
 
 }
+
+.oneP {
+	background-color: green;
+    margin-right:2.5%;
+    overflow:hidden; 
+}
+
+.twoP {
+	background-color: yellow;
+    margin-right:2.5%;
+    overflow:hidden; 
+
+}
+
+.threeP {
+	background-color: red;
+    margin-right:2.5%;
+    overflow:hidden; 
+}
+
 
 #loginLogo {
 	padding-bottom: 20px;
@@ -119,9 +139,6 @@ nav {
 
 /* property */
 .calHold {
-    margin-left:2.5%;
-    width:45%;
-    float: right;
 }
 
 .tableInfo {
