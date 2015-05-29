@@ -37,10 +37,10 @@ angular.module('wallfly')
 
     /* event source that contains custom events on the scope */
     $scope.events = [
-      {title: 'Wall Repair',start: new Date(y, m, d + 1, 12, 0),allDay: false},
+      {title: 'Inspection',start: new Date(y, m, d + 1, 12, 0),allDay: false},
       {title: 'Wall Repair',start: new Date(y, m, d + 6, 9, 0),allDay: false},
-      {title: 'Wall Repair',start: new Date(y, m, d + 4, 11, 0),allDay: false},
-      {title: 'Wall Repair',start: new Date(y, m, d + 12, 10, 0),allDay: false}
+      {title: 'Fire alarm check',start: new Date(y, m, d + 4, 11, 0),allDay: false},
+      {title: 'Open House',start: new Date(y, m, d + 12, 10, 0),allDay: false}
 
 
     ];

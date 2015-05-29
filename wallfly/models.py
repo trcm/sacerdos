@@ -174,7 +174,6 @@ class WFUser(models.Model):
     agent_id (ForeignKey(Tenant)) - either null or the id of the Agent
     """
 
-    
     user = models.OneToOneField(User)
     user_level = models.IntegerField(default=0)
     tenant_id = models.ForeignKey(Tenant, null=True, blank=True)

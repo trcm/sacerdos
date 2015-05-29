@@ -1,5 +1,5 @@
 angular.module('wallfly')
-  .controller('HomeController', ['$scope', '$http', '$window', '$location', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window, $modal, $location, resolveProperties, Property, User) {
+  .controller('HomeController', ['$scope', '$http', '$window', '$location', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window,  $location, $modal, resolveProperties, Property, User) {
     // use the ReolveProperties method in the application
     $scope.properties = resolveProperties.data;
 
