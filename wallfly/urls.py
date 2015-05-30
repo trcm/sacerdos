@@ -11,7 +11,7 @@ urlpatterns = patterns('',
                        # get the user details
                        url(r'^auth/$', views.AuthView.as_view(), name='auth'),
                        # get all the data and proeprties for an agent
-                       url(r'agent/(?P<pk>[0-9]+)$', views.AgentView.as_view(), name='agent'),
+                       # url(r'agent/(?P<pk>[0-9]+)$', views.AgentView.as_view(), name='agent'),
                        url(r'user/(?P<pk>[0-9]+)$', views.UserDetail.as_view(), name='user'),
 
                        # Property queries

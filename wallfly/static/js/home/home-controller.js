@@ -80,14 +80,6 @@ angular.module('wallfly')
 	  .error(function(){
 	    alert("Error: Unfortunately, there was a major crash during Property creation.  Please contact your System Administrator");
 	  });
-	
-	// $http.post("/property/", prop)
-	//   .success(function() {
-	//     $scope.properties = User.query({ id:$window.sessionStorage.id });
-	//   })
-	//   .error(function() {
-	//     alert("Error: Unfortunately, there was a major crash during Property creation.  Please contact your System Administrator");
-	//   });
       });
     };
     

@@ -43,7 +43,6 @@ class IsOwnUser(permissions.BasePermission):
     This permission will only let a user access their own details
     """
     def has_object_permission(self, request, view, obj):
-        print "checking wfuser persmission"
 
         tok = Token.objects.get(key=request.auth)
         # checking permsission

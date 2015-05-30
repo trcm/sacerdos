@@ -41,13 +41,9 @@ angular.module('wallfly')
       {title: 'Wall Repair',start: new Date(y, m, d + 6, 9, 0),allDay: false},
       {title: 'Fire alarm check',start: new Date(y, m, d + 4, 11, 0),allDay: false},
       {title: 'Open House',start: new Date(y, m, d + 12, 10, 0),allDay: false}
-
-
     ];
 
     $scope.eventSources = [$scope.events];
-
-
 
     // opens the modal with the issue creation form
     // once the issue creation form has been completed, saves the issue in the
