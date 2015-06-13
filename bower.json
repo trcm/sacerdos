@@ -17,6 +17,7 @@
     "angular-smart-table": "~2.0.1",
     "bootstrap": "~3.3.4",
     "angular-spinner": "~0.6.1",
+    "angular-ui-calendar": "~0.8.1",
     "angular-file-model": "~0.3.0",
     "ng-flow": "~2",
     "flow.js": "~2",

@@ -1,52 +1,50 @@
 <ng-include src=" 'static/js/views/navbar.html'"></ng-include>
 
 <script type="text/ng-template" id="prop-create.html">
-	<form ng-submit="ok()" flow-init="{testChunks:false}" flow-name="uploader.flow"
-		class="ng-scope ng-invalid ng-invalid-required ng-dirty" method="POST">
-		<div class="modal-header">
-			<button type="button" class="close"
-				ng-click="cancel()">&times;</button>
-			<h4 class="modal-title" id="">Create Property</h4>
-		</div>
-		
-		<div class="modal-body">
+    <form ng-submit="ok()" flow-init="{testChunks:false}" flow-name="uploader.flow"
+	    class="ng-scope ng-invalid ng-invalid-required ng-dirty" method="POST">
+	<div class="modal-header">
+	    <button type="button" class="close"
+		    ng-click="cancel()">&times;</button>
+	    <h4 class="modal-title" id="">Create Property</h4>
+	</div>
+	
+	<div class="modal-body">
 
-			<div class="form-group">
-				<label>Address</label>
-				<input type="text" class="form-control" name="description"
-					ng-model="prop.address" ng-required="true"
-					ng-maxlength=1000
-					/>
-			</div>
-			
-			<div class="form-group">
-				<label>Name</label>
-				<input type="text" class="form-control" name="name"
-					ng-model="prop.name" ng-required="true"
-					ng-maxlength=1000
-					/>
-			</div>
-			<div class="form-group"  >
-				<label>Picture</label><br/>
-				<span name="image" ng-model="image" class="btn btn-primary" flow-btn>Select Image</span>
-				{{ $flow.files[0].file.name }}
-			</div>
+	    <div class="form-group">
+		<label>Address</label>
+		<input type="text" class="form-control" name="description"
+			ng-model="prop.address" ng-required="true"
+			ng-maxlength=1000
+			/>
+	    </div>
+	    
+	    <div class="form-group">
+		<label>Name</label>
+		<input type="text" class="form-control" name="name"
+			ng-model="prop.name" ng-required="true"
+			ng-maxlength=1000
+			/>
+	    </div>
+	    <div class="form-group"  >
+		<label>Picture</label><br/>
+		<span name="image" ng-model="image" class="btn btn-primary" flow-btn>Select Image</span>
+		{{ $flow.files[0].file.name }}
+	    </div>
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" ng-click="cancel()">Cancel
-				</button>
-				<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
-			</div>
-	</form>
-		</div>
+	    <div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+		</button>
+		<button id="submitBtn" type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+	    </div>
+	</div>
+    </form>
 
 </script>
-<!-- <div ng-if="agent" ng-include=" 'static/js/views/users/agent.html' ">
-</div>
--->
+
 <div class="agentDiv" ng-if="agent">
-	<h1 class="text-center">Properties</h1>
-	<button class="btn btn-lg btn-primary pull-right" id="createBtn" ng-click="newProp()">Create Property</button>
+    <h1 class="text-center">Properties</h1>
+    <button class="btn btn-lg btn-primary pull-right" id="createBtn" ng-click="newProp()">Create Property</button>
 </div>
 
 <div ng-if="owner" ng-include=" 'static/js/views/users/owner.html' ">
@@ -57,49 +55,49 @@
 
 
 <div ng-show="prop" class="{{ prop.status_string }}">
-	<img alt="" ng-src="{{ prop.property_image }}"/>
-	<h3>{{ prop.name }}</h3>
-	<p>{{ prop.address }}</p>
-	<p>Property Status: {{ prop.status }}</p>
-	<p>Issues: {{ prop.issues.length }}</p>
-	<a href="/#/property/{{ prop.id }}">Info</a>
+    <img alt="" ng-src="{{ prop.property_image }}"/>
+    <h3>{{ prop.name }}</h3>
+    <p>{{ prop.address }}</p>
+    <p>Property Status: {{ prop.status }}</p>
+    <p>Issues: {{ prop.issues.length }}</p>
+    <a href="/#/property/{{ prop.id }}">Info</a>
 </div>
 
 <div class="container-fluid" ng-if="properties.props">
-	<div class="row">
-		<label>Search: <input ng-model="search"></label>		
-		<ul id="propList" ng-show="properties.props" >
-			<li class="col-md-4 propGridItm" class="container"
-				ng-repeat="p in properties.props | filter: search ">
-				<div class="row">
-					<a class="" href="/#/property/{{ p.id }}">
-						<img class="propGridItemPic" alt="" ng-src="{{ p.property_image }}"/>
-					</a>
-				</div>
-				<div class="row">
-					<div class="container col-md-2 {{ p.status_string }}">
-						<div class="row">
-							{{ p.issues.length }}
-						</div>
-						<div class="row">
-							a
-						</div>
-					</div>	
-					<div class="col-md-8 container">
-						<div class="text-center row">
-							{{ p.name }}
-						</div>
-						<div class="text-center row">
-							{{ p.address }}
-						</div>
-					</div>
-					<div class="col-md-2 {{ row.status_string }}">
-						{{ p.status }}
-					</div>	
-				</div>
-			</li>
-		</ul>
-	</div>
+    <div class="row">
+	<label>Search: <input ng-model="search"></label>		
+	<ul id="propList" ng-show="properties.props" >
+	    <li class="col-md-4 propGridItm" class="container"
+		    ng-repeat="p in properties.props | filter: search ">
+		<div class="row">
+		    <a class="" href="/#/property/{{ p.id }}">
+			<img class="propGridItemPic" alt="" ng-src="{{ p.property_image }}"/>
+		    </a>
+		</div>
+		<div class="row">
+		    <div class="container col-md-2 {{ p.status_string }}">
+			<div class="row">
+			    {{ p.status }}
+			</div>
+			<div class="row">
+			    a
+			</div>
+		    </div>	
+		    <div class="col-md-8 container">
+			<div id="propName" class="text-center row">
+			    {{ p.name }}
+			</div>
+			<div class="text-center row">
+			    {{ p.address }}
+			</div>
+		    </div>
+		    <div class="col-md-2 {{ row.status_string }}">
+			{{ p.issues.length }}
+		    </div>	
+		</div>
+	    </li>
+	</ul>
+    </div>
 
 </div>
 

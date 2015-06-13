@@ -13,7 +13,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authtoken.models import Token
 
 from django.shortcuts import render
-from django.http import HttpResponse, Http404, HttpResponseBadRequest
+from django.http import HttpResponse, Http404, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
 from django.core import serializers
@@ -39,6 +39,15 @@ def convertStatusToString(status):
     elif status == 3:
         return "three"
 
+def convertStatusToSeverity(status):
+    if status == 1:
+        return "Ok"
+    elif status == 2:
+        return "Moderate"
+    elif status == 3:
+        return "Severe"
+    
+
 
 class AuthView(APIView):
     """
@@ -55,15 +64,18 @@ class AuthView(APIView):
 
     def get(self, request, format=None):
         
-        userToken = Token.objects.get(key=request.auth)
-        content = {
-            'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-            'auth': unicode(request.auth),
-            'id'  : userToken.user_id,
-            'level': userToken.user.wfuser.user_level
-        }
-        return Response(content)
-
+        try:
+            userToken = Token.objects.get(key=request.auth)
+            content = {
+                'user': unicode(request.user),  # `django.contrib.auth.User` instance.
+                'auth': unicode(request.auth),
+                'id'  : userToken.user_id,
+                'level': userToken.user.wfuser.user_level
+            }
+            return Response(content)
+        except:
+            return HttpResponseForbidden() 
+            
 class PropertyDetail(APIView):
     
     """
@@ -79,7 +91,7 @@ class PropertyDetail(APIView):
     permission_classes = (IsAuthenticated, IsRelatedToUser, )
 
     def get(self, request, pk, format=None):
-        print pk
+        # print pk
         ret = {}
         try:
             # get and serialize the property
@@ -89,7 +101,7 @@ class PropertyDetail(APIView):
             # make a mutable copy and add the status string to the copy
             ret = ps.data.copy()
             ret['status_string'] = convertStatusToString(ret['status'])
-
+            ret['status_severity'] = convertStatusToSeverity(ret['status'])
             # get the tenant information
             ten = Tenant.objects.get(property_id=prop)
             tenSerialized = TenantSerializer(ten)
@@ -119,26 +131,26 @@ class PropertyView(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, format=None):
-        ## hardcoded agent id BAD BAD
-        agent = WFUser.objects.get(id=1)
+    # def get(self, request, format=None):
+    #     ## hardcoded agent id BAD BAD
+    #     agent = WFUser.objects.get(id=1)
 
-        #get and serialize the list of properties for this agent
-        properties = Property.objects.filter(agent_id=agent.agent_id)
-        serializer = PropertySerializer(properties, many=True)
+    #     #get and serialize the list of properties for this agent
+    #     properties = Property.objects.filter(agent_id=agent.agent_id)
+    #     serializer = PropertySerializer(properties, many=True)
             
-        return Response(serializer.data)
+    #     return Response(serializer.data)
 
     def post(self, request, format=None):
         try:
-            print request.data
+            # print request.data
             ret = request.data
             tok = Token.objects.get(key=request.auth)
             agent = tok.user.wfuser.agent_id
 
-            print "agent id ", agent
+            # print "agent id ", agent
             ret['agent_id'] = agent
-            print ret
+            # print ret
             
             prop = PropertySerializer(data=ret)
             if prop.is_valid():
@@ -149,7 +161,7 @@ class PropertyView(APIView):
                 p.save()
                 return Response(status=status.HTTP_201_CREATED)
             else:
-                print prop.errors
+                # print prop.errors
                 return Response(prop.errors)
         except Exception as e:
             print e
@@ -158,29 +170,29 @@ class PropertyView(APIView):
         return Response("done")
 
 ### NOT USED CURRENTLY
-class AgentView(APIView):
+# class AgentView(APIView):
     
-    """
-    The agent view will be used in the future for more agent specific tasks.
+#     """
+#     The agent view will be used in the future for more agent specific tasks.
  
-    Methods:
-    get(self,request, pk, format=None)
-    CUrrently not used, all this does is return a list of properties as a JSON object
-    """
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+#     Methods:
+#     get(self,request, pk, format=None)
+#     CUrrently not used, all this does is return a list of properties as a JSON object
+#     """
+#     authentication_classes = (TokenAuthentication,)
+#     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, pk, format=None):
-        print pk
-        try:
-            # get the agent and their properties
-            agent = Agent.objects.get(id=pk)
-            props = Property.objects.filter(agent_id=agent)
-            serial = PropertySerializer(props, many=True)
-            return Response(serial.data)
+#     def get(self, request, pk, format=None):
+#         print pk
+#         try:
+#             # get the agent and their properties
+#             agent = Agent.objects.get(id=pk)
+#             props = Property.objects.filter(agent_id=agent)
+#             serial = PropertySerializer(props, many=True)
+#             return Response(serial.data)
 
-        except Agent.DoesNotExist:
-            raise Http404
+#         except Agent.DoesNotExist:
+#             raise Http404
 
 
 class UserDetail(APIView):
@@ -205,11 +217,11 @@ class UserDetail(APIView):
         try:
             # try grabbing and serializing the WFUser object for the user
             u = WFUser.objects.get(id=pk)
-            print u
+
             self.check_object_permissions(request, u)
 
             us = WFUserSerializer(u)
-            
+
             if u.user_level == AGENT:
                 # grab all the properties for the user
                 props = Property.objects.filter(agent_id=u.agent_id)
@@ -227,7 +239,6 @@ class UserDetail(APIView):
                     issuesSerialized = IssueSerializer(issues, many=True)
                     p['issues'] = issuesSerialized.data
                     print p['property_id']
-
                 
                 ret = us.data
                 ret['props'] = ps.data
@@ -248,6 +259,12 @@ class UserDetail(APIView):
                 # this  will also include issues
                 try:
                     prop = u.tenant_id.property_id
+
+                    # check if the tenant actually has a property id
+                    if prop is None:
+                        ret = us.data
+                        return Response(ret)
+
                     prop.status_string = convertStatusToString(prop.status)
                     ps = PropertySerializer(prop)
                     ret = us.data
@@ -323,7 +340,7 @@ class IssueDetail(APIView):
         errors = {}
         # try and grab property
         try:
-            print request.data
+            # print request.data
             if 'prop_id' not in request.data:
                 errors['prop_error'] = "No Property id"
                 return Response(errors, status=status.HTTP_400_BAD_REQUEST)
@@ -337,10 +354,9 @@ class IssueDetail(APIView):
 
     # create an issue, pk is the primary key id of the property of the issue
     def post(self, request, pk, format=None):
-
         try:
-            print "creating issue"
-            print request.data
+            # print "creating issue"
+            # print request.data
             # grab the property
             prop = Property.objects.get(id=pk)
             request.data['property_id'] = prop.id
@@ -354,12 +370,12 @@ class IssueDetail(APIView):
                 issues = Issue.objects.filter(property_id=prop)
                 highest = 0
                 for i in issues:
-                    print "severity", i.severity
+                    # print "severity", i.severity
                     if i.severity > highest and i.resolved < 1:
-                       print highest
+                       # print highest
                        highest = i.severity
                 prop.status = highest
-                print highest
+                # print highest
                 prop.save()
 
                 return Response(issue.data)
@@ -378,7 +394,7 @@ class IssueDetail(APIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     # update an Issue, at the moment this is just used to resolve the issue but
-    # it could be used to change any part of the issue
+    # it could be used to change any part of the issue when the forms are edited in the template
     def put(self, request, pk, format=None):
         # grab the issue
         try:
@@ -396,11 +412,9 @@ class IssueDetail(APIView):
             issues = Issue.objects.filter(property_id=prop)
             highest = 1
             for i in issues:
-                print "severity", i.severity
                 if i.severity > highest and i.resolved < 1:
                     highest = i.severity
             prop.status = highest
-            print highest
             prop.save()
             
             return Response(serializer.data)
@@ -412,20 +426,17 @@ class IssueDetail(APIView):
         try:
             # Try grabbing and deleting the object
             issue = Issue.objects.get(id=pk)
-            print issue
             prop = issue.property_id
-            print prop
             issue.delete()
 
             # Update the severity status of the property
             issues = Issue.objects.filter(property_id=prop)
             highest = 1
             for i in issues:
-                print "severity", i.severity
+                # print "severity", i.severity
                 if i.severity > highest:
                     highest = i.severity
             prop.status = highest
-            print highest
             prop.save()
 
             # Nothing to return

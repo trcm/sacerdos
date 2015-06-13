@@ -1,120 +1,142 @@
 <ng-include src=" 'static/js/views/navbar.html'"></ng-include>
 
 <script type="text/ng-template" id="issue-create.html">
-	<form ng-submit="ok()" flow-init="{testChunks:false}" flow-name="uploader.flow"
-		class="ng-scope ng-invalid ng-invalid-required ng-dirty" method="POST">
-		<div class="modal-header">
-			<button type="button" class="close"
-				ng-click="cancel()">&times;</button>
-			<h4 class="modal-title" id="mySkillsLabel">Create or edit a Skills</h4>
-		</div>
-			
-		<div class="modal-body">
+    <form ng-submit="ok()" flow-init="{testChunks:false}" flow-name="uploader.flow"
+	    class="ng-scope ng-invalid ng-invalid-required ng-dirty" method="POST">
+	<div class="modal-header">
+	    <button type="button" class="close"
+		    ng-click="cancel()">&times;</button>
+	    <h4 class="modal-title" id="mySkillsLabel">Create or edit a Skills</h4>
+	</div>
+	
+	<div class="modal-body">
 
-			<div class="form-group">
-				<label>Issue Severity</label>
-				<select class="form-control" ng-model="issue.severity" ng-init="issue.severity = options[0]"
-					ng-options="opt as opt.label for opt in options">
-				</select>
-			</div>
-				
-			<div class="form-group">
-				<label>Description:</label>
-					
-				<input type="text" class="form-control" name="description"
-					ng-model="issue.description" ng-required="true"
-					ng-maxlength=1000
-					/>
-				<span class="error" ng-show="form.description.$error.minlength">Must be at least  characters.</span>
-				<span class="error" ng-show="form.description.$error.maxlength">Must be at most 1000 characters.</span>
-			</div>
-			
-			<div class="form-group"  >
-				<label>Picture</label><br/>
-				<span name="image" ng-model="image" class="btn btn-primary" flow-btn>Select Image</span>
-				{{ $flow.files[0].file.name }}
-			</div>
+	    <div class="form-group">
+		<label>Issue Severity</label>
+		<select class="form-control" ng-model="issue.severity" ng-init="issue.severity = options[0]"
+			ng-options="opt as opt.label for opt in options">
+		</select>
+	    </div>
+	    
+	    <div class="form-group">
+		<label>Description:</label>
+		
+		<input type="text" class="form-control" name="description"
+			ng-model="issue.description" ng-required="true"
+			ng-maxlength=1000
+			/>
+		<span class="error" ng-show="form.description.$error.minlength">Must be at least  characters.</span>
+		<span class="error" ng-show="form.description.$error.maxlength">Must be at most 1000 characters.</span>
+	    </div>
+	    
+	    <div class="form-group"  >
+		<label>Picture</label><br/>
+		<span name="image" ng-model="image" class="btn btn-primary" flow-btn>Select Image</span>
+		{{ $flow.files[0].file.name }}
+	    </div>
 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" ng-click="cancel()">Cancel
-				</button>
-				<button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
-			</div>
-	</form>
-		</div>
+	    <div class="modal-footer">
+		<button id="cancelBtn" type="button" class="btn btn-default" ng-click="cancel()">Cancel
+		</button>
+		<button id="issueSubmit" type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+	    </div>
+    </form>
+	</div>
 
 </script>
 
 
-<div class="{{ prop.status_string }}">
-	<img alt="" ng-src="{{ prop.property_image }}"/>
-	<h3>{{ prop.name }}</h3>
-	<p>{{ prop.status }}</p>
-	<p>{{ prop.address }}</p>
-	<p>Tenants: {{ prop.tenant }}</p>
-	<p>Agent: {{ prop.agent_id}}</p>
+<div class="col-md-6 propertyInfo">
+    <div>
+	<img class="propertyPic {{ prop.status_severity }}" alt="" ng-src="{{ prop.property_image }}"/>
+    </div>
+    <div class="row">
+	<div class="col-md-6">
+	    <h3 id="propName"> {{ prop.name }}</h3>
+	    <p id="propAddress">{{ prop.address }}</p>
+	    <h4>Tenant</h4>
+	    <p>Email: {{ prop.tenant.email }}</p>
+	    <P>Contact: {{ prop.tenant.contact_number }}</P>
+	    <h4>Agent</h4>
+	    <p>Email: {{ prop.agent_id.email }}</p>
+	    <p>Contact: {{ prop.agent_id.contact_num }}</p>
+	</div>
+	<div class="col-md-6">
+	    <h3>Property Status</h3>
+	    <p>Status: {{ prop.status_severity }} </p>
+	    <p>Current issues: {{ currIssues.length }}</p>
+	</div>
+	
+    </div>
+    
 </div>
-	
-<button ng-click="createIssue(prop)" class="btn btn-danger">Create Issue</button>
-<h4>Issues</h4>
-<table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
+
+<div class="col-md-6" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+
+<div class='tableInfo'>
+    <button ng-click="createIssue(prop)" class="btn btn-lg btn-danger" id="createIssueBtn">Create Issue</button>
+
+    <h4>Issues</h4>
+    <table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
+    	<thead>
+	    <tr>
+		<th colspan="5"><input id="issueSearch" st-search="" class="form-control" placeholder="Search..." type="search"/></th>
+	    </tr>
+	    <tr>
+    		<th st-sort="severity">Severity</th>
+    		<th st-sort="description">Description</th>
+    		<th>Image</th>
+    		<th st-sort="progress">Resolution</th>
+    		<th>Remove</th>
+    	    </tr>
+    	</thead>
+    	<tbody>
+    	    <tr class="issueRow" ng-repeat="row in issues" ng-hide="row.resolved">
+    		<td>{{row.severity}}</td>
+    		<td class="issueDescription">{{row.description}}</td>
+    		<td><a ng-click="openLightboxModal(row.image)">
+    		    <img ng-src="{{row.image}}" class="img-thumbnail">
+    		</a>
+    		</td>
+    		<td>
+    		    <button id="resolveBtn" ng-click="resolveIssue(row)" class="btn btn-sm">Resolve</button>
+    		</td>
+    		<td>
+    		    <button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
+    			<i class="glyphicon glyphicon-remove-circle">
+    			</i>
+    		    </button>
+    		</td>
+    	    </tr>
+    	</tbody>
+    </table>       
+
+    
+    <h4>Issue history</h4>
+    <table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
 	<thead>
-		<tr>
-			<th colspan="5"><input st-search="" class="form-control" placeholder="Search..." type="search"/></th>
-		</tr>
-		<tr>
-			<th st-sort="severity">Severity</th>
-			<th st-sort="description">Description</th>
-			<th>Image</th>
-			<th st-sort="progress">Resolution</th>
-			<th>Remove</th>
-		</tr>
+	    <tr>
+		<th colspan="5"><input st-search="" class="form-control" placeholder="Search..." type="search"/></th>
+	    </tr>
+	    <tr>
+		<th st-sort="severity">Severity</th>
+		<th st-sort="description">Description</th>
+		<th st-sort="progress">Resolution</th>
+		<th>Remove</th>
+	    </tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="row in issues" ng-hide="row.resolved">
-			<td>{{row.severity}}</td>
-			<td>{{row.description}}</td>
-			<td><a ng-click="openLightboxModal(row.image)">
-				<img ng-src="{{row.image}}" class="img-thumbnail">
-			</a>
-			</td>
-			<td>
-				<button id="resolveBtn" ng-click="resolveIssue(row)" class="btn btn-sm">Resolve </button>
-			</td>
-			<td>
-				<button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
-					<i class="glyphicon glyphicon-remove-circle">
-					</i>
-				</button>
-			</td>
-		</tr>
+	    <tr class="resolvedRow" ng-repeat="row in issues" >
+		<td>{{row.severity}}</td>
+		<td>{{row.description}}</td>
+		<td>{{ row.resolved }}</td>
+		<td>
+		    <button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
+			<i class="glyphicon glyphicon-remove-circle">
+			</i>
+		    </button>
+		</td>
+	    </tr>
 	</tbody>
-</table>       
-	
-<h4>Issue history</h4>
-<table st-table="issues" st-safe-src="issuesSafe" class="table table-striped">
-	<thead>
-		<tr>
-			<th colspan="5"><input st-search="" class="form-control" placeholder="Search..." type="search"/></th>
-		</tr>
-		<tr>
-			<th st-sort="severity">Severity</th>
-			<th st-sort="description">Description</th>
-			<th st-sort="progress">Resolution</th>
-			<th>Remove</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="row in issues" >
-			<td>{{row.severity}}</td>
-			<td>{{row.description}}</td>
-			<td>{{ row.resolved }}</td>
-			<td>
-				<button id="deleteBtn" type="button" ng-click="deleteIssue(row)" class="btn btn-sm btn-danger">
-					<i class="glyphicon glyphicon-remove-circle">
-					</i>
-				</button>
-			</td>
-		</tr>
-	</tbody>
-</table>       
+    </table>       
+</div>

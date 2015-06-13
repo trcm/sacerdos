@@ -1,5 +1,9 @@
 angular.module('wallfly')
+<<<<<<< HEAD
   .controller('HomeController', ['$scope', '$http', '$window', '$location', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window, $location, $modal, resolveProperties, Property, User) {
+=======
+  .controller('HomeController', ['$scope', '$http', '$window', '$location', '$modal', 'resolveProperties', 'Property', 'User', function($scope, $http, $window,  $location, $modal, resolveProperties, Property, User) {
+>>>>>>> testing
     // use the ReolveProperties method in the application
     $scope.properties = resolveProperties.data;
 
@@ -80,7 +84,10 @@ angular.module('wallfly')
 	  .error(function(){
 	    alert("Error: Unfortunately, there was a major crash during Property creation.  Please contact your System Administrator");
 	  });
+<<<<<<< HEAD
 	
+=======
+>>>>>>> testing
       });
     };
     

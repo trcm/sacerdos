@@ -9,10 +9,11 @@ angular.module('wallfly',
 		'flow',
 		'bootstrapLightbox',
 		'angularSpinner',
-		'ngLodash'])
+		'ngLodash',
+	        'ui.calendar'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
-      // load the default agent view 
+      // load the default agent view
       .when('/', {
         templateUrl: 'static/js/views/home/home.html',
         controller: 'HomeController',
@@ -29,8 +30,14 @@ angular.module('wallfly',
 	    });
 	  }]
 	}})
+    //redirect for calendar test
+    .when('/calendar',{
+	templateUrl: 'static/js/views/calendar.html',
+	controller: 'CalController'})
+      .otherwise({redirectTo: '/'})
+
     // redirect information for the login controller
-      .when('/login', {
+    .when('/login', {
 	templateUrl: 'static/js/views/login.html',
 	controller: 'authController'})
       .otherwise({redirectTo: '/login'});
@@ -72,12 +79,12 @@ angular.module('wallfly',
       api.token.tok($scope.getCredentials()).
 	$promise.
 	then(function(data){
-	    
+
 	  // store the user token as in the session
 	  $window.sessionStorage.token = data.token;
 	  // Authentication flag, will be used in a later version
 	  $window.sessionStorage.Authenticated = true;
-	  
+
 	  // grab the user detail fro mthe backend
 	  // this is mainly for testin and redirection, will be removed in the next version
 	  $http.get('/auth/').success(function(data) {
@@ -107,7 +114,7 @@ angular.module('wallfly',
       $http.defaults.headers.common.Authorization = '';
       delete $window.sessionStorage.token;
     };
-    
+
   }])
 // This factory was used in a pervious version of the authentication system.
 // It used the localStorageService to store the token on the users system, this has been refactored to use the

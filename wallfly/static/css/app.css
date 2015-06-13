@@ -4,15 +4,49 @@ body {
 
 .one {
 	background-color: green;
+/*    margin-right:2.5%;
+    width:45%;
+    float:left;
+    overflow:hidden; */
 }
 
 .two {
 	background-color: yellow;
+/*    margin-right:2.5%;
+    width:45%;
+    float:left;
+    overflow:hidden; */
+
 }
 
 .three {
 	background-color: red;
+ /*   margin-right:2.5%;
+    width:45%;
+    float:left;
+    overflow:hidden; */
+
 }
+
+.oneP {
+	background-color: green;
+    margin-right:2.5%;
+    overflow:hidden; 
+}
+
+.twoP {
+	background-color: yellow;
+    margin-right:2.5%;
+    overflow:hidden; 
+
+}
+
+.threeP {
+	background-color: red;
+    margin-right:2.5%;
+    overflow:hidden; 
+}
+
 
 #loginLogo {
 	padding-bottom: 20px;
@@ -99,7 +133,48 @@ nav {
 .propGridItm {
 	border: 3px #2d3d4e solid;
 	width: 350px;
-	height: 200px;
+	height: 196px;
 	list-style: none;
 }
 
+/* property */
+.calHold {
+}
+
+.tableInfo {
+    margin-top:10px;
+    clear:both;
+}
+
+.statusBorder {
+	border: 10px red solid;
+}
+
+.propertyPic {
+	display: block;
+	margin-top: 10px;
+	height: 190px;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.propertyInfo {
+	border: 3px #2d3d4e solid;
+}
+
+.Severe {
+	border: 10px red solid;
+}
+
+.Moderate {
+	border: 10px yellow solid;
+}
+
+.Ok {
+	border: 10px green solid;
+}
+
+#createIssueBtn {
+	margin-top: 20px;
+}

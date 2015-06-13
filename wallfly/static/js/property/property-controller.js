@@ -1,7 +1,7 @@
 angular.module('wallfly')
-  .controller('PropertyController', ['$scope', '$http', '$window', '$modal', 'resolvedProperty', 'Property', 'Issue', 'Lightbox', 'issues', function($scope, $http, $window, $modal, resolvedProperty, Property, Issue, Lightbox, issues) {
+  .controller('PropertyController', ['uiCalendarConfig', '$scope', '$http', '$window', '$modal', 'lodash', 'resolvedProperty', 'Property', 'Issue', 'Lightbox', 'issues', function(uiCalendarConfig, $scope, $http, $window, $modal, lodash, resolvedProperty, Property, Issue, Lightbox, issues) {
 
-    
+
     $scope.user = $window.sessionStorage.user;
     $scope.issues = issues.data;
     $scope.issuesSafe = $scope.issues;
@@ -9,6 +9,41 @@ angular.module('wallfly')
     $scope.prop = resolvedProperty.data;
     $scope.issue = {};
 
+    $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
+    console.log($scope.currIssues.length);
+
+    //sets the ui for the calendar app
+    $scope.uiConfig = {
+      calendar:{
+        height:450,
+        aspectRatio:1.5,
+        editable: true,
+        header:{
+          left: 'month basicWeek basicDay agendaWeek agendaDay',
+          center: 'title',
+          right: 'today prev,next'
+        },
+        dayClick: $scope.alertEventOnClick,
+	eventDrop: $scope.alertOnDrop,
+        eventResize: $scope.alertOnResize
+      }
+    };
+    // gets variables that represent the current day, month and year
+    // as well as todays date
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    /* event source that contains custom events on the scope */
+    $scope.events = [
+      {title: 'Inspection',start: new Date(y, m, d + 1, 12, 0),allDay: false},
+      {title: 'Wall Repair',start: new Date(y, m, d + 6, 9, 0),allDay: false},
+      {title: 'Fire alarm check',start: new Date(y, m, d + 4, 11, 0),allDay: false},
+      {title: 'Open House',start: new Date(y, m, d + 12, 10, 0),allDay: false}
+    ];
+
+    $scope.eventSources = [$scope.events];
 
     // opens the modal with the issue creation form
     // once the issue creation form has been completed, saves the issue in the
@@ -31,7 +66,7 @@ angular.module('wallfly')
     // open a modal with the lightbox image inside it
     $scope.openLightboxModal = function (index) {
       Lightbox.openModal(index);
-    };    
+    };
     // Acutally calls the http request to save a new issue in the database
     $scope.saveIssue = function(id) {
       var u = '/issue/' + id;
@@ -39,7 +74,7 @@ angular.module('wallfly')
       console.log(id, $scope.newIssue);
 
       // add issue with image
-      
+
       var fd = new FormData();
 
       if ($scope.newIssue['image']) {
@@ -60,11 +95,12 @@ angular.module('wallfly')
 	.success(function() {
 	  $scope.prop = Property.query({id: id});
 	  $scope.issues = Issue.query({id: id});
+	  $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
 	})
 	.error(function(data) {
 	  alert(data);
 	});
-      
+
       // save the new issue then grab the updated issues and property details
       // $http.post(u, $scope.newIssue)
       // 	.success(function() {
@@ -84,9 +120,10 @@ angular.module('wallfly')
 	  // update the issue to resolved and grab the updated issues and property details
 	  $scope.prop = Property.query({id: id});
 	  $scope.issues = Issue.query({id: id});
+	  $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
 	});
     };
-    
+
     // delete an issue from the database
     $scope.deleteIssue = function(issue) {
       var id = $scope.prop.id;
@@ -94,32 +131,33 @@ angular.module('wallfly')
 	success(function(data) {
 	  $scope.prop = Property.query({id: $scope.prop.id});
 	  $scope.issues = Issue.query({id: id});
+	  $scope.currIssues = lodash.filter($scope.issues, {"resolved" : 0});
 	});
     };
-    
+
   }])
   .controller('IssueCreateController', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance) {
     // handles the modal for the issue creation form
     $scope.issue = {};
-    $scope.uploader = {}; 
+    $scope.uploader = {};
     $scope.options = [
       { label: 'Minor', value: 1 },
       { label: 'Moderate', value: 2 },
       { label: 'Severe', value: 3 }
     ];
-    
+
     $scope.ok = function() {
       // update the severity value to be a number insteal of the label name
       $scope.issue.severity = $scope.issue.severity.value;
       $scope.uploader.flow.upload();
       if ($scope.uploader.flow.files.length > 0) {
 	$scope.issue.image = $scope.uploader.flow.files[0].file;
-      } 
+      }
       $modalInstance.close($scope.issue);
     };
 
     $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
     };
-    
+
   }]);
