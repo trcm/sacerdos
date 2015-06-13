@@ -22,9 +22,6 @@
 		<div class="container" ng-view></div>
 
 		<!-- calender scripts -->
-		
-
-
 		<!-- other scripts -->
 
 		<script src="{{ STATIC_URL }}js/libs/jquery/dist/jquery.js"></script>
