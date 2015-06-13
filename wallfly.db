@@ -118,7 +118,7 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$15000$hvu9llk8bYIB$7ssxZYlRhQ+46ndaLRxsuNqWzF5B6/0/Um5NXXasalQ=','2015-04-09 06:42:00',1,'admin','','','',1,1,'2015-03-31 04:49:46'),(2,'pbkdf2_sha256$15000$e8ibiYdspaa4$VbkV8sh5Oa/igA462BTmKxjF5pJwwY5cajDNK3z6Itw=','2015-04-01 08:15:54',0,'test_a','','','',0,1,'2015-04-01 08:15:54');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$15000$hvu9llk8bYIB$7ssxZYlRhQ+46ndaLRxsuNqWzF5B6/0/Um5NXXasalQ=','2015-06-13 14:12:06',1,'admin','','','',1,1,'2015-03-31 04:49:46'),(2,'pbkdf2_sha256$15000$tekOf0unHxcc$5ZtZdzewi1LuoaChjaB4GJV6KjA71Uq5Ouaz7mvZpUo=','2015-04-01 08:15:54',0,'test','','','',0,1,'2015-04-01 08:15:54'),(3,'pbkdf2_sha256$15000$5O5EypmFZDqe$ID4Tvy07MM6MHfGrGw328xR1XFUms5ZM143Kt4kFhio=','2015-04-23 01:24:35',0,'tenant','Garry','Tenant','',0,1,'2015-04-23 01:24:35');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +212,7 @@ CREATE TABLE `authtoken_token` (
 
 LOCK TABLES `authtoken_token` WRITE;
 /*!40000 ALTER TABLE `authtoken_token` DISABLE KEYS */;
-INSERT INTO `authtoken_token` VALUES ('1e17d50cf6ec44fa446f13c6d3877b2dffd6b8b2','2015-04-09 00:27:37',1),('bb1a3b2fba157e73adb55a20ee7001d6925b0892','2015-04-09 00:27:37',2);
+INSERT INTO `authtoken_token` VALUES ('1e17d50cf6ec44fa446f13c6d3877b2dffd6b8b2','2015-04-09 00:27:37',1),('a1e6e75ce8c99879242badc46e55f84a9f3c45b5','2015-04-23 01:24:35',3),('bb1a3b2fba157e73adb55a20ee7001d6925b0892','2015-04-09 00:27:37',2);
 /*!40000 ALTER TABLE `authtoken_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,7 +237,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_e8701ad4` (`user_id`),
   CONSTRAINT `djang_content_type_id_697914295151027a_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -246,7 +246,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2015-03-31 04:53:03','1','Owner object',1,'',8,1),(2,'2015-03-31 04:53:33','1','Agent object',1,'',7,1),(3,'2015-03-31 04:54:05','1','Property object',1,'',9,1),(4,'2015-04-01 07:39:55','1','WFUser object',1,'',13,1),(5,'2015-04-01 08:15:54','2','test_a',1,'',4,1),(6,'2015-04-01 08:17:08','2','WFUser object',1,'',13,1),(7,'2015-04-01 08:17:17','1','WFUser object',2,'Changed agent_id.',13,1),(8,'2015-04-01 08:17:24','1','WFUser object',2,'Changed user_level.',13,1),(9,'2015-04-01 10:09:28','2','Test',1,'',9,1),(10,'2015-04-01 10:52:38','1','Test Prop',2,'Changed property_image.',9,1),(11,'2015-04-01 10:53:42','2','Test',2,'Changed property_image.',9,1),(12,'2015-04-01 10:55:59','2','Test',2,'Changed property_image.',9,1),(13,'2015-04-01 10:59:24','2','Test',2,'Changed property_image.',9,1),(14,'2015-04-01 11:00:16','2','Test',2,'Changed property_image.',9,1),(15,'2015-04-01 11:01:23','2','Test',2,'Changed property_image.',9,1),(16,'2015-04-01 11:02:39','2','Test',2,'Changed property_image.',9,1),(17,'2015-04-01 11:03:18','2','Test',2,'Changed property_image.',9,1),(18,'2015-04-01 11:09:26','2','Test',2,'Changed property_image.',9,1),(19,'2015-04-01 11:09:50','2','Test',2,'Changed property_image.',9,1),(20,'2015-04-01 11:10:11','1','Test Prop',2,'Changed property_image.',9,1),(21,'2015-04-09 02:32:44','1','Test Prop',2,'Changed status.',9,1),(22,'2015-04-09 02:34:06','3','On fire all the time',1,'',9,1),(23,'2015-04-09 03:01:49','2','All Good',2,'Changed name and property_image.',9,1),(24,'2015-04-09 03:02:02','1','Some issues',2,'Changed name and property_image.',9,1),(25,'2015-04-09 03:53:55','2','All Good',2,'Changed num_tenants.',9,1),(26,'2015-04-09 05:44:03','3','Issue object',3,'',11,1),(27,'2015-04-09 05:44:03','2','Issue object',3,'',11,1),(28,'2015-04-09 05:44:03','1','Issue object',3,'',11,1),(29,'2015-04-09 06:42:19','15','Issue object',3,'',11,1),(30,'2015-04-09 06:42:19','14','Issue object',3,'',11,1),(31,'2015-04-09 06:42:19','13','Issue object',3,'',11,1),(32,'2015-04-09 06:42:19','12','Issue object',3,'',11,1),(33,'2015-04-09 06:42:19','11','Issue object',3,'',11,1),(34,'2015-04-09 06:42:19','10','Issue object',3,'',11,1),(35,'2015-04-09 06:42:19','9','Issue object',3,'',11,1),(36,'2015-04-09 06:42:19','8','Issue object',3,'',11,1),(37,'2015-04-09 06:42:19','7','Issue object',3,'',11,1),(38,'2015-04-09 06:42:19','6','Issue object',3,'',11,1),(39,'2015-04-09 06:42:19','5','Issue object',3,'',11,1),(40,'2015-04-09 06:42:19','4','Issue object',3,'',11,1);
+INSERT INTO `django_admin_log` VALUES (1,'2015-03-31 04:53:03','1','Owner object',1,'',8,1),(2,'2015-03-31 04:53:33','1','Agent object',1,'',7,1),(3,'2015-03-31 04:54:05','1','Property object',1,'',9,1),(4,'2015-04-01 07:39:55','1','WFUser object',1,'',13,1),(5,'2015-04-01 08:15:54','2','test_a',1,'',4,1),(6,'2015-04-01 08:17:08','2','WFUser object',1,'',13,1),(7,'2015-04-01 08:17:17','1','WFUser object',2,'Changed agent_id.',13,1),(8,'2015-04-01 08:17:24','1','WFUser object',2,'Changed user_level.',13,1),(9,'2015-04-01 10:09:28','2','Test',1,'',9,1),(10,'2015-04-01 10:52:38','1','Test Prop',2,'Changed property_image.',9,1),(11,'2015-04-01 10:53:42','2','Test',2,'Changed property_image.',9,1),(12,'2015-04-01 10:55:59','2','Test',2,'Changed property_image.',9,1),(13,'2015-04-01 10:59:24','2','Test',2,'Changed property_image.',9,1),(14,'2015-04-01 11:00:16','2','Test',2,'Changed property_image.',9,1),(15,'2015-04-01 11:01:23','2','Test',2,'Changed property_image.',9,1),(16,'2015-04-01 11:02:39','2','Test',2,'Changed property_image.',9,1),(17,'2015-04-01 11:03:18','2','Test',2,'Changed property_image.',9,1),(18,'2015-04-01 11:09:26','2','Test',2,'Changed property_image.',9,1),(19,'2015-04-01 11:09:50','2','Test',2,'Changed property_image.',9,1),(20,'2015-04-01 11:10:11','1','Test Prop',2,'Changed property_image.',9,1),(21,'2015-04-09 02:32:44','1','Test Prop',2,'Changed status.',9,1),(22,'2015-04-09 02:34:06','3','On fire all the time',1,'',9,1),(23,'2015-04-09 03:01:49','2','All Good',2,'Changed name and property_image.',9,1),(24,'2015-04-09 03:02:02','1','Some issues',2,'Changed name and property_image.',9,1),(25,'2015-04-09 03:53:55','2','All Good',2,'Changed num_tenants.',9,1),(26,'2015-04-09 05:44:03','3','Issue object',3,'',11,1),(27,'2015-04-09 05:44:03','2','Issue object',3,'',11,1),(28,'2015-04-09 05:44:03','1','Issue object',3,'',11,1),(29,'2015-04-09 06:42:19','15','Issue object',3,'',11,1),(30,'2015-04-09 06:42:19','14','Issue object',3,'',11,1),(31,'2015-04-09 06:42:19','13','Issue object',3,'',11,1),(32,'2015-04-09 06:42:19','12','Issue object',3,'',11,1),(33,'2015-04-09 06:42:19','11','Issue object',3,'',11,1),(34,'2015-04-09 06:42:19','10','Issue object',3,'',11,1),(35,'2015-04-09 06:42:19','9','Issue object',3,'',11,1),(36,'2015-04-09 06:42:19','8','Issue object',3,'',11,1),(37,'2015-04-09 06:42:19','7','Issue object',3,'',11,1),(38,'2015-04-09 06:42:19','6','Issue object',3,'',11,1),(39,'2015-04-09 06:42:19','5','Issue object',3,'',11,1),(40,'2015-04-09 06:42:19','4','Issue object',3,'',11,1),(41,'2015-04-23 01:22:59','2','test_a',2,'Changed password.',4,1),(42,'2015-04-23 01:23:04','2','test',2,'Changed username.',4,1),(43,'2015-04-23 01:24:35','3','tenant',1,'',4,1),(44,'2015-04-23 01:24:51','3','tenant',2,'Changed first_name and last_name.',4,1),(45,'2015-04-23 01:25:34','1','Tenant object',1,'',10,1),(46,'2015-04-23 01:25:49','3','tenant',1,'',13,1),(47,'2015-04-30 04:18:04','6','fadsfasdf',3,'',9,1),(48,'2015-04-30 04:18:04','5','fdasfdsafdsa',3,'',9,1),(49,'2015-04-30 04:18:04','4','i hate kieran',3,'',9,1),(50,'2015-04-30 05:00:21','12','3214321',3,'',9,1),(51,'2015-04-30 05:00:21','11','pjpojkn-',3,'',9,1),(52,'2015-04-30 05:00:21','10','kknkln',3,'',9,1),(53,'2015-04-30 05:00:21','9','12341',3,'',9,1),(54,'2015-04-30 05:00:21','8','fdafsadf',3,'',9,1),(55,'2015-04-30 05:00:21','7','fdasfdas',3,'',9,1),(56,'2015-04-30 05:59:02','17','kjoho',3,'',9,1),(57,'2015-04-30 05:59:02','16','jkj;kfdsa',3,'',9,1),(58,'2015-04-30 05:59:02','15','test',3,'',9,1),(59,'2015-04-30 05:59:02','14','qwer',3,'',9,1),(60,'2015-04-30 05:59:02','13','4321',3,'',9,1),(61,'2015-04-30 08:31:07','22','1234',3,'',9,1),(62,'2015-04-30 08:31:07','21','4321',3,'',9,1),(63,'2015-04-30 08:31:07','20','rewqrwe',3,'',9,1),(64,'2015-04-30 08:31:07','19','jkklj',3,'',9,1),(65,'2015-04-30 08:31:07','18','jkj',3,'',9,1),(66,'2015-04-30 08:32:55','25','asdfij',3,'',9,1),(67,'2015-04-30 08:32:55','24','qwer',3,'',9,1),(68,'2015-04-30 08:32:55','23','1234',3,'',9,1),(69,'2015-04-30 08:43:31','33','wir',3,'',9,1),(70,'2015-04-30 08:43:31','32','qwer',3,'',9,1),(71,'2015-04-30 08:43:31','31','zxzx',3,'',9,1),(72,'2015-04-30 08:43:31','30','jfjf',3,'',9,1),(73,'2015-04-30 08:43:31','29','nm.n,',3,'',9,1),(74,'2015-04-30 08:43:31','28','iouiopupiou',3,'',9,1),(75,'2015-04-30 08:43:31','27','ijkl',3,'',9,1),(76,'2015-04-30 08:43:31','26','test',3,'',9,1),(77,'2015-04-30 11:42:33','37','iiu',3,'',9,1),(78,'2015-04-30 11:42:33','36','fa',3,'',9,1),(79,'2015-04-30 11:42:33','35','af',3,'',9,1),(80,'2015-04-30 11:42:33','34','asdfasf',3,'',9,1),(81,'2015-04-30 12:16:16','40','9090',3,'',9,1),(82,'2015-04-30 12:16:16','39','123rfdsa',3,'',9,1),(83,'2015-04-30 12:16:16','38','test1',3,'',9,1),(84,'2015-04-30 13:54:04','43','fdsaf',3,'',9,1),(85,'2015-04-30 13:54:04','42','zxc',3,'',9,1),(86,'2015-04-30 13:54:04','41','as',3,'',9,1),(87,'2015-05-01 00:49:57','50','jioji0o2n3jln;kklj',3,'',9,1),(88,'2015-05-01 00:49:57','49','fdsa',3,'',9,1),(89,'2015-05-01 00:49:57','48','as',3,'',9,1),(90,'2015-05-01 00:49:57','47','asdf',3,'',9,1),(91,'2015-05-01 00:49:57','46','fdskjk',3,'',9,1),(92,'2015-05-01 00:49:57','45','ajk',3,'',9,1),(93,'2015-05-01 00:49:57','44','this is atest',3,'',9,1),(94,'2015-05-01 01:19:11','64','Issue object',3,'',11,1),(95,'2015-05-01 01:19:11','63','Issue object',3,'',11,1),(96,'2015-05-01 01:19:11','62','Issue object',3,'',11,1),(97,'2015-05-01 01:19:11','59','Issue object',3,'',11,1),(98,'2015-05-01 01:19:11','51','Issue object',3,'',11,1),(99,'2015-05-01 01:20:18','65','1 - fdsafasd',1,'',11,1),(100,'2015-05-01 01:26:25','66','1 - fdsa',2,'Changed image and property_id.',11,1),(101,'2015-05-01 01:26:34','66','1 - fdsa',2,'Changed property_id.',11,1),(102,'2015-05-01 01:27:10','55','fdsafjklj2ionf',3,'',9,1),(103,'2015-05-01 01:27:10','54','fasd',3,'',9,1),(104,'2015-05-01 01:27:10','53','Test1',3,'',9,1),(105,'2015-05-01 01:27:10','52','This is a test',3,'',9,1),(106,'2015-05-01 01:27:10','51','Death before Decaf',3,'',9,1),(107,'2015-05-01 12:08:26','56','Death before Decaf',3,'',9,1),(108,'2015-05-03 09:17:42','58','First ',2,'Changed address, owner_id and name.',9,1),(109,'2015-05-03 09:17:49','58','First ',2,'No fields changed.',9,1),(110,'2015-05-03 09:17:54','58','First ',2,'No fields changed.',9,1),(111,'2015-05-03 09:18:34','57','Second',2,'Changed address, owner_id and name.',9,1),(112,'2015-05-03 09:18:40','1','Some issues',2,'No fields changed.',9,1),(113,'2015-05-03 09:19:01','2','All Good',2,'Changed address.',9,1),(114,'2015-05-03 09:19:12','3','On fire all the time',2,'No fields changed.',9,1),(115,'2015-05-03 09:20:56','59','A. House.',2,'Changed owner_id.',9,1),(116,'2015-05-03 09:21:31','59','A. House.',2,'Changed property_image.',9,1),(117,'2015-05-03 09:21:47','57','Second',2,'Changed property_image.',9,1),(118,'2015-06-06 06:54:17','63','Test Prop',3,'',9,1),(119,'2015-06-06 06:54:17','60','Test prop',3,'',9,1),(120,'2015-06-06 06:55:43','64','Test Prop',3,'',9,1),(121,'2015-06-06 06:56:30','65','Test Prop',3,'',9,1),(122,'2015-06-06 07:04:08','66','Test Prop',3,'',9,1),(123,'2015-06-06 07:05:03','67','Test Prop',3,'',9,1),(124,'2015-06-06 07:05:48','68','Test Prop',3,'',9,1),(125,'2015-06-06 07:06:28','69','Test Prop',3,'',9,1),(126,'2015-06-06 07:19:51','70','Test Prop',3,'',9,1),(127,'2015-06-06 07:21:33','71','Test Prop',3,'',9,1),(128,'2015-06-06 07:22:41','72','Test Prop',3,'',9,1),(129,'2015-06-06 07:29:25','73','Test Prop',3,'',9,1),(130,'2015-06-06 07:31:13','74','Test Prop',3,'',9,1),(131,'2015-06-06 07:35:26','75','Test Prop',3,'',9,1),(132,'2015-06-06 08:39:29','76','Test Prop',3,'',9,1),(133,'2015-06-06 09:21:12','77','Test Prop',3,'',9,1),(134,'2015-06-06 09:25:11','78','Test Prop',3,'',9,1),(135,'2015-06-06 10:31:20','79','Test Prop',3,'',9,1),(136,'2015-06-06 14:28:01','80','Test Prop',3,'',9,1),(137,'2015-06-07 01:28:22','81','Test Prop',3,'',9,1),(138,'2015-06-13 14:14:04','83','Agent Test Prop',3,'',9,1),(139,'2015-06-13 14:14:04','82','Test Prop',3,'',9,1),(140,'2015-06-13 14:14:04','62','house 12',3,'',9,1),(141,'2015-06-13 14:14:04','61','St Lucia',3,'',9,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,7 +290,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +299,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2015-03-28 08:38:23'),(2,'auth','0001_initial','2015-03-28 08:38:23'),(3,'wallfly','0001_initial','2015-03-28 08:38:24'),(4,'wallfly','0002_auto_20150328_0841','2015-03-28 08:41:28'),(5,'admin','0001_initial','2015-03-31 03:50:56'),(6,'sessions','0001_initial','2015-03-31 03:50:56'),(7,'wallfly','0003_auto_20150331_0503','2015-03-31 05:03:44'),(8,'wallfly','0004_auto_20150401_0809','2015-04-01 08:09:13'),(9,'wallfly','0005_auto_20150401_0817','2015-04-01 08:17:04'),(10,'wallfly','0006_auto_20150401_1005','2015-04-01 10:05:59'),(11,'wallfly','0007_auto_20150401_1046','2015-04-01 10:46:59'),(12,'wallfly','0008_auto_20150401_1431','2015-04-01 14:31:25'),(13,'wallfly','0009_auto_20150401_1449','2015-04-01 14:49:48'),(14,'authtoken','0001_initial','2015-04-09 00:26:23');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2015-03-28 08:38:23'),(2,'auth','0001_initial','2015-03-28 08:38:23'),(3,'wallfly','0001_initial','2015-03-28 08:38:24'),(4,'wallfly','0002_auto_20150328_0841','2015-03-28 08:41:28'),(5,'admin','0001_initial','2015-03-31 03:50:56'),(6,'sessions','0001_initial','2015-03-31 03:50:56'),(7,'wallfly','0003_auto_20150331_0503','2015-03-31 05:03:44'),(8,'wallfly','0004_auto_20150401_0809','2015-04-01 08:09:13'),(9,'wallfly','0005_auto_20150401_0817','2015-04-01 08:17:04'),(10,'wallfly','0006_auto_20150401_1005','2015-04-01 10:05:59'),(11,'wallfly','0007_auto_20150401_1046','2015-04-01 10:46:59'),(12,'wallfly','0008_auto_20150401_1431','2015-04-01 14:31:25'),(13,'wallfly','0009_auto_20150401_1449','2015-04-01 14:49:48'),(14,'authtoken','0001_initial','2015-04-09 00:26:23'),(15,'wallfly','0010_auto_20150501_0714','2015-05-01 07:14:06');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +325,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('azj0zibmd3s1mygvo1xat4cu6503o3fl','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-15 08:09:17'),('jiihcqw9cxvwa9bbypbr42wagx0zia93','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 00:30:52'),('lel8of3dqmbylhqcrpyb7ty9rzw6gzpg','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-14 04:49:55'),('lf2roxq5zdblr4c28844891ynm1jcotw','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-04-16 02:17:15'),('nbdj5zo923giu1gfq4gp3381q6kd1mtq','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 06:42:00'),('p1cjw1xx9f9awytap6y4jbexxmi9r8ed','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-04-23 00:30:50'),('pjxhphp8n2b1z2y6gm71gma585mcrv3v','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 02:25:10'),('v0nbbi40mp6wgegzyd4rsfwc6wivf8kg','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 00:30:52'),('yxtwp9cru6ep8616s32y6vgujb6bgahd','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-04-23 00:50:06');
+INSERT INTO `django_session` VALUES ('10cdyht8cgwe393gr7qv8gwg5ebs1eg7','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-06-13 02:44:20'),('5ho5jrsb08vclm90cvf14qdb528r8vwk','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-06-27 14:12:06'),('65ds7tua761dstxrwpb06bzd0irjyyoo','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-06-12 03:34:26'),('azj0zibmd3s1mygvo1xat4cu6503o3fl','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-15 08:09:17'),('b3gmtqhlfo8skt6djy1j3h7t8ixj7zgq','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-05-09 12:54:01'),('cpnbi9le64mq1a1ykjgxelczfhat1vhl','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-05-09 12:05:25'),('dw5l9ukp7xsmv81sww2d8doy4da3f5kl','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-05-14 03:45:07'),('ehns9vp2u2qep0vdsnwxbauc098xjx9p','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-05-14 13:53:54'),('gf8runrnnlv38knkqnn52w0x0dgfe9n5','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-05-15 01:53:36'),('jiihcqw9cxvwa9bbypbr42wagx0zia93','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 00:30:52'),('lel8of3dqmbylhqcrpyb7ty9rzw6gzpg','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-14 04:49:55'),('lf2roxq5zdblr4c28844891ynm1jcotw','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-04-16 02:17:15'),('nbdj5zo923giu1gfq4gp3381q6kd1mtq','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 06:42:00'),('p1cjw1xx9f9awytap6y4jbexxmi9r8ed','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-04-23 00:30:50'),('pjxhphp8n2b1z2y6gm71gma585mcrv3v','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 02:25:10'),('s9ppdpi2iwub65gcq8bqfn83bidnqg9f','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-05-17 09:17:10'),('v0nbbi40mp6wgegzyd4rsfwc6wivf8kg','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-04-23 00:30:52'),('vuwlosrbw7mdoq0zu7xf0n7mideqv3r8','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-05-24 09:11:20'),('wi6vniyf6e611tt65q28tc90upqjcgz7','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-05-07 01:22:32'),('wzuu9ttl1jy8bsp5w4gnbjjx3ujcqc7d','MjI3MDJkMDdjYjdhMWEwZTY3MjZmYTQwMmQyYzAwN2Y5YTYzMzY5Njp7Il9hdXRoX3VzZXJfaGFzaCI6IjQ2NzdmZDI5MzMwOTUxMjg2ZWZlNzMzZjMzOTY3ZjI3NzJmNzAwNTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2015-05-15 12:08:16'),('yxtwp9cru6ep8616s32y6vgujb6bgahd','YWVjOTY5MmM1OWNmYmM5NDg4MDg5YmU2MzFhMzlkNzczNGQyMzY0ZTp7fQ==','2015-04-23 00:50:06');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,7 +428,7 @@ CREATE TABLE `wallfly_issue` (
   PRIMARY KEY (`id`),
   KEY `wallfly_issue_32fb6337` (`property_id_id`),
   CONSTRAINT `wallfly_i_property_id_id_77918bdd8859fed6_fk_wallfly_property_id` FOREIGN KEY (`property_id_id`) REFERENCES `wallfly_property` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=611 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -437,7 +437,7 @@ CREATE TABLE `wallfly_issue` (
 
 LOCK TABLES `wallfly_issue` WRITE;
 /*!40000 ALTER TABLE `wallfly_issue` DISABLE KEYS */;
-INSERT INTO `wallfly_issue` VALUES (49,'b47504fe-d836-44fa-8ef7-71546a09dcdb',1,'Scuff of paint','',1,1),(50,'a77546a0-c007-49aa-a679-c364c84224c2',3,'Everything is on fire all of the time','',1,1),(51,'ef887f2e-f109-4e39-88de-dd7e9f743e50',2,'Hole in the wall yo','',1,3),(52,'8b3427be-7afd-4626-a3ca-3e2288488efb',3,'fdsa','',1,1),(53,'94380304-7ece-4098-bd76-96238a684195',3,'Oh shit','',1,1),(55,'67ccef0d-11eb-4635-b38f-938db23ee778',3,'fire\'','',1,1),(56,'15226eb4-031f-4117-a7fc-65c799e8f7ca',3,'Fire fire fire','',1,1);
+INSERT INTO `wallfly_issue` VALUES (87,'026906f6-14cc-4b26-b0da-259e556f0fba',3,'There\'s a fire.','./housefire_Do7GP9P.jpg',0,58),(95,'579aa8bb-e7ef-4296-973b-47b162258ec1',3,'Fire still going','',1,3),(98,'a8e52a61-5420-4c86-bc3a-54c573b08b27',3,'test - pipe blown','',1,57),(574,'76cda85f-2cf7-4dfe-bbd2-db2a55a455af',1,'Minor','',1,2),(606,'da2bc803-7035-4da1-99d1-5956dc3fed41',1,'Minor','',0,2),(607,'a37361fa-f25f-460d-b742-4b0c96d70f5e',2,'Moderate','',0,2);
 /*!40000 ALTER TABLE `wallfly_issue` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,7 +493,7 @@ CREATE TABLE `wallfly_property` (
   KEY `wallfly_property_279564bf` (`owner_id_id`),
   CONSTRAINT `wallfly_propert_agent_id_id_10465961693ce662_fk_wallfly_agent_id` FOREIGN KEY (`agent_id_id`) REFERENCES `wallfly_agent` (`id`),
   CONSTRAINT `wallfly_propert_owner_id_id_1bbcf4b145c36ff0_fk_wallfly_owner_id` FOREIGN KEY (`owner_id_id`) REFERENCES `wallfly_owner` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -502,7 +502,7 @@ CREATE TABLE `wallfly_property` (
 
 LOCK TABLES `wallfly_property` WRITE;
 /*!40000 ALTER TABLE `wallfly_property` DISABLE KEYS */;
-INSERT INTO `wallfly_property` VALUES (1,'736a92e6-7c45-438c-a2f4-99056dbbfb22','12 Prop Cr, PropTown',1,1,'Some issues','./issue.jpeg',1,1),(2,'85ff2b1f-24f4-4f97-9f0e-30652bf736a5','fdsafsda',1,0,'All Good','./good.jpeg',1,1),(3,'f2b72de1-2bf6-484b-8332-e57d43644cf3','12 Angular st',2,3,'On fire all the time','./fire',1,1);
+INSERT INTO `wallfly_property` VALUES (1,'736a92e6-7c45-438c-a2f4-99056dbbfb22','12 Prop Cr, PropTown',1,1,'Some issues','./issue.jpeg',1,1),(2,'85ff2b1f-24f4-4f97-9f0e-30652bf736a5','1701 Enterprise Rd, San Fran',2,0,'All Good','./good.jpeg',1,1),(3,'f2b72de1-2bf6-484b-8332-e57d43644cf3','12 Angular st',1,3,'On fire all the time','./fire',1,1),(57,'7ac03ae5-0bc2-48b7-9d4c-4f284a6433b9','2 Second Ave, First',1,0,'Second','./This_Old_House.jpg',1,1),(58,'94a0e7c7-9cf9-4dce-a687-aa59979805e6','12 First St, Town',3,0,'First ','./housefire_gCp3yHO.jpg',1,1),(59,'5d846286-4da0-4b3a-afcc-d3063d098b7f','12 Rode Rd, Chermside',1,0,'A. House.','./New-House-Designs-and-Floor-Plans-Borgan-Grass.jpg',1,1);
 /*!40000 ALTER TABLE `wallfly_property` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -524,7 +524,7 @@ CREATE TABLE `wallfly_tenant` (
   PRIMARY KEY (`id`),
   KEY `wallfly_tenant_32fb6337` (`property_id_id`),
   CONSTRAINT `wallfly_t_property_id_id_77d5b6596d35c584_fk_wallfly_property_id` FOREIGN KEY (`property_id_id`) REFERENCES `wallfly_property` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,6 +533,7 @@ CREATE TABLE `wallfly_tenant` (
 
 LOCK TABLES `wallfly_tenant` WRITE;
 /*!40000 ALTER TABLE `wallfly_tenant` DISABLE KEYS */;
+INSERT INTO `wallfly_tenant` VALUES (1,'1b06ba12-09fd-47a3-868d-cfc51fb43410','fdsakjfdkslajklaf;sd','tenant@tenant.com','fdsakjkldsa;jfd','dfsajklfdsafdsa',1);
 /*!40000 ALTER TABLE `wallfly_tenant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -559,7 +560,7 @@ CREATE TABLE `wallfly_wfuser` (
   CONSTRAINT `wallfly_wfuser_agent_id_id_f36037296870095_fk_wallfly_agent_id` FOREIGN KEY (`agent_id_id`) REFERENCES `wallfly_agent` (`id`),
   CONSTRAINT `wallfly_wfuser_owner_id_id_5e95db90e992f831_fk_wallfly_owner_id` FOREIGN KEY (`owner_id_id`) REFERENCES `wallfly_owner` (`id`),
   CONSTRAINT `wallfly_wfuser_user_id_28d154774c357c0d_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -568,7 +569,7 @@ CREATE TABLE `wallfly_wfuser` (
 
 LOCK TABLES `wallfly_wfuser` WRITE;
 /*!40000 ALTER TABLE `wallfly_wfuser` DISABLE KEYS */;
-INSERT INTO `wallfly_wfuser` VALUES (1,1,1,NULL,1,NULL),(2,2,1,NULL,1,NULL);
+INSERT INTO `wallfly_wfuser` VALUES (1,1,1,NULL,1,NULL),(2,2,1,NULL,1,NULL),(3,3,NULL,NULL,3,1);
 /*!40000 ALTER TABLE `wallfly_wfuser` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -581,4 +582,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-10 14:12:35
+-- Dump completed on 2015-06-14  0:15:07
